@@ -33,9 +33,9 @@ class Prescription(db.Model):
 	refills_remaining = db.Column(db.Integer, nullable=True) 
 	black_box_warning = db.Column(db.String(300), nullable=True)
 	dosage = db.Column(db.String(300), nullable=False)
-	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))#ForeignKey
-	doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.doctor_id'))#ForeignKey
-	schedule_id = db.Column(db.Integer, db.ForeignKey('schedules.schedule_id'))#ForeignKey
+	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))#ForeignKey connecting prescription and user
+	doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.doctor_id'))#ForeignKey connecting prescription and doctor
+	schedule_id = db.Column(db.Integer, db.ForeignKey('schedules.schedule_id'))#ForeignKey connectiong prescription and schedule
 	food = db.Column(db.Boolean, nullable=True) #food?
 	drink = db.Column(db.Boolean, nullable=True) #water?
 
@@ -48,7 +48,7 @@ class Prescription(db.Model):
 
 	#Define a relationship to schedules
 	schedule = db.relationship("Schedule", backref=db.backref("prescriptions"), order_by=prescription_id)
-	
+
 	def __repr__(self):
 		"""Provides helpful representation data when printed for debugging purposes."""
 
