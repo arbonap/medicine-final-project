@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<marquee>
+    <h1>Register - Tell me a little about yourself!</h1>
+    <br>
+</marquee>
+<form>
+    Condition associated with this medicine:
+    <br>
+    <input type="text" value="Insert condition here">
+    <br>
+    Name of medication:
+    <br>
+    <input type="text" value="Insert name of medication here">
+    <br>
+    Any known side-effects from this medicine?
+    <br>
+    <input type="text" value="Insert side effects here">
+    <br>
+    Starting amount of medicine:
+    <br>
+    <input type="text" value="Insert starting amount of medicine here">
+    <br>
+    Number of Refills remaining:
+    <br>
+    <input type="text" value="Insert # of refills remaining here">
+    <br>
+    Black-box warnings:
+    <br>
+    <input type="text" value="Insert black box warning here">
+    <br>
+    Dosage: 
+    <br>
+    <input type="text" value="Insert dosage here">
+    <br>
+    Is this medication taken with food?
+    <br>
+    Check the checkbox if "Yes". Leave the checkbox unchecked if "no".
+    <br>
+    <input type="checkbox" value="food"> Food
+    <br>
+    Is this medication taken with water?
+    <br>
+    Check the checkbox if "Yes". Leave the checkbox unchecked if "no".
+    <br>
+    <input type="checkbox" value= "water"> Water
+    <br>
+    <input type="submit" value="Press here to submit!"> 
+</form>
+{% endblock %}
