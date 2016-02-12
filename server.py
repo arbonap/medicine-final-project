@@ -43,7 +43,8 @@ def submittal():
     refills_remaining = int(request.form.get("refills_remaining"))
     #refills remaining is an integer
     black_box_warning = request.form.get("black_box_warning")
-    dosage = request.form.get("dosage")
+    dosage_timing = request.form.get("dosage_timing")
+    dosage_quantity = request.form.get("dosage_quantity")
     #dosage is a string so no need for an integer
     food = bool(request.form.get("food"))
     water_boolean = bool(request.form.get("water"))
@@ -56,9 +57,10 @@ def submittal():
                                     starting_amount=starting_amount,
                                     refills_remaining=refills_remaining,
                                     black_box_warning=black_box_warning,
-                                    dosage=dosage,
+                                    dosage_timing=dosage_timing,
+                                    dosage_quantity=dosage_quantity,
                                     food=food,
-                                    water=water_boolean)
+                                    drink=water_boolean)
     print new_prescription
     db.session.add(new_prescription)
     db.session.commit()

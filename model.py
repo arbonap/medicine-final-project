@@ -6,6 +6,7 @@ db = SQLAlchemy()
 # ----------------------------------------
 # Model definitions/ skeleton
 
+
 class User(db.Model):
     """User of medicine-tracking app.
     Contains user_id, name and ."""
@@ -43,10 +44,11 @@ class Prescription(db.Model):
     #  starting amount of medicine
     refills_remaining = db.Column(db.Integer, nullable=True)
     black_box_warning = db.Column(db.String(300), nullable=True)
-    dosage = db.Column(db.String(300), nullable=False)
+    dosage_quantity = db.Column(db.Integer, nullable=False)
+    dosage_timing = db.Column(db.String(20), nullable=False)
     food = db.Column(db.Boolean, nullable=True)
     #food?
-    water = db.Column(db.Boolean, nullable=True)
+    drink = db.Column(db.Boolean, nullable=True)
     #water?
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     #ForeignKey connecting prescription and user
@@ -71,20 +73,8 @@ class Prescription(db.Model):
     def __repr__(self):
         """Provides helpful representation data when printed for debugging purposes."""
 
-        return "<Prescription id prescription_id=%s reason reason=%s \
-               med_name med_name=%s side_effects side_effects=%s \
-               starting_amount starting_amount=%s refills_remaining refills_remaining=%s \
-               black_box_warning black_box_warning=%s dosage dosage=%s \
-               food food=%s water drink=%s>" % (self.prescription_id,
-                                                self.reason,
-                                                self.med_name,
-                                                self.side_effects,
-                                                self.starting_amount,
-                                                self.refills_remaining,
-                                                self.black_box_warning,
-                                                self.dosage,
-                                                self.food,
-                                                self.water)
+        return "<Prescription id prescription_id=%s med_name med_name=%s>" % (self.prescription_id, self.med_name)
+
 
 class Schedule(db.Model):
 
