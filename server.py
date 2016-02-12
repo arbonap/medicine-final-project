@@ -24,18 +24,47 @@ def index():
     #each item from the checklist is its own row
 
 
-@app.route('/register')
-def something():
+@app.route('/register', methods=['GET'])
+def register():
     """Sends user to fill out medicine information"""
+    #Get form variables
 
     return render_template("register.html")
 
 
-# @app.route('/pass', methods=["PASS"])
-# def something():
-#     """Something"""
+@app.route('/medication', methods=['POST'])
+def submittal():
+    """Getting variables from medication registeration form"""
+    reason = request.form.get("reason")
+    med_name = request.form.get("med_name")
+    side_effects = request.form.get("side_effects")
+    starting_amount = int(request.form.get("starting_amount"))
+    #starting amount is an integer
+    refills_remaining = int(request.form.get("refills_remaining"))
+    #refills remaining is an integer
+    black_box_warning = request.form.get("black_box_warning")
+    dosage = request.form.get("dosage")
+    #dosage is a string so no need for an integer
+    food = bool(request.form.get("food"))
+    water_boolean = bool(request.form.get("water"))
+    print water_boolean
+    print food
 
-#     return render_template("pass")
+    new_prescription = Prescription(reason=reason,
+                                    med_name=med_name,
+                                    side_effects=side_effects,
+                                    starting_amount=starting_amount,
+                                    refills_remaining=refills_remaining,
+                                    black_box_warning=black_box_warning,
+                                    dosage=dosage,
+                                    food=food,
+                                    water=water_boolean)
+    print new_prescription
+    db.session.add(new_prescription)
+    db.session.commit()
+
+    flash("Medication %s added." % med_name)
+    return redirect("/")
 
 # @app.route('/pass', methods=["PASS"])
 # def something():

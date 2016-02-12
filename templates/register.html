@@ -4,47 +4,52 @@
     <h1>Register - Tell me a little about yourself!</h1>
     <br>
 </marquee>
-<form>
-    Condition associated with this medicine:
+<form action ="/medication" method="POST">
+    <input type="date"/>
     <br>
-    <input type="text" value="Insert condition here">
+    <label for="reason">Condition associated with this medicine:</label>
+    <input type="text" id="reason" name = "reason" placeholder="Insert condition here">
     <br>
     Name of medication:
     <br>
-    <input type="text" value="Insert name of medication here">
+    <input type="text" name = "med_name" placeholder="Insert name of medication here">
     <br>
     Any known side-effects from this medicine?
     <br>
-    <input type="text" value="Insert side effects here">
+    <input type="text" name = "side_effects" placeholder="Insert side effects here">
     <br>
     Starting amount of medicine:
     <br>
-    <input type="text" value="Insert starting amount of medicine here">
+    <input type="text" name = "starting_amount" placeholder="Insert starting amount of medicine here">
     <br>
     Number of Refills remaining:
     <br>
-    <input type="text" value="Insert # of refills remaining here">
+    <input type="text" name = "refills_remaining" placeholder="Insert # of refills remaining here">
     <br>
     Black-box warnings:
     <br>
-    <input type="text" value="Insert black box warning here">
+    <input type="text" name = "black_box_warning" placeholder="Insert black box warning here">
     <br>
     Dosage: 
     <br>
-    <input type="text" value="Insert dosage here">
+    <input type="number" min="1" max="10" name = "dosage" placeholder="Insert dosage here">
     <br>
+    How many times a day are you taking this medicine?
+    <input type="number" min="1" max="10" name = "dosage" placeholder="Insert dosage here">    
     Is this medication taken with food?
     <br>
-    Check the checkbox if "Yes". Leave the checkbox unchecked if "no".
+    Check the corresponding checkbox for 'True' or 'False'.
     <br>
-    <input type="checkbox" value="food"> Food
+    <input type="checkbox" name = "food" value="T"> True
+    <input type="checkbox" name = "food" value="F"> False
     <br>
     Is this medication taken with water?
     <br>
-    Check the checkbox if "Yes". Leave the checkbox unchecked if "no".
+    Check the corresponding checkbox for 'True' or 'False'.
     <br>
-    <input type="checkbox" value= "water"> Water
+    <input type="checkbox" name = "water" value= "T"> True
+    <input type="checkbox" name = "water" value= "F"> False
     <br>
-    <input type="submit" value="Press here to submit!"> 
+    <input type="submit" value="Press here to submit!" > 
 </form>
 {% endblock %}
