@@ -19,9 +19,18 @@ def index():
     """Homepage."""
     return render_template("homepage.html")
 
-    #request.args.getlist from a checklist form. that checklist will contian little boxes
-    #list should give back a list of times
-    #each item from the checklist is its own row
+# @app.route('/sign-up', methods=['GET'])
+# def sign-up_form():
+#    """Show form for user signup."""
+
+# return render_template("sign-up_form.html")
+
+# @app.route('/sign-up', methods=['POST'])
+# def sign-up_process():
+#    """Sign-up process registration."""
+
+# get form variables
+# example = request.form["example"]
 
 
 @app.route('/register', methods=['GET'])
