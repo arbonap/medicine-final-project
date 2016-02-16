@@ -10,46 +10,50 @@
     <label for="reason">Condition associated with this medicine:</label>
     <input type="text" id="reason" name = "reason" placeholder="Insert condition here">
     <br>
-    Name of medication:
+    <label for="med_name">Name of medication:</label>
     <br>
-    <input type="text" name = "med_name" placeholder="Insert name of medication here">
+    <input type="text" id="med_name" name = "med_name" placeholder="Insert name of medication here">
     <br>
-    Any known side-effects from this medicine?
+    <label for="side_effects">Any known side-effects from this medicine?</label>
     <br>
-    <input type="text" name = "side_effects" placeholder="Insert side effects here">
+    <input type="text" id="side_effects" name = "side_effects" placeholder="Insert side effects here">
     <br>
-    Starting amount of medicine:
+    <label for="starting_amount"> Starting amount of medicine: </label>
     <br>
-    <input type="text" name = "starting_amount" placeholder="Insert starting amount of medicine here">
+    <input type="text" id="side_effects" name = "starting_amount" placeholder="Insert starting amount of medicine here">
     <br>
-    Number of Refills remaining:
+    <label for="refills_remaining"> Number of Refills remaining:</label>
     <br>
-    <input type="text" name = "refills_remaining" placeholder="Insert # of refills remaining here">
+    <input type="text" id="refills_remaining" name = "refills_remaining" placeholder="Insert # of refills remaining here">
     <br>
-    Black-box warnings:
+    <label for="black_box_warning"> Black-box warnings: </label>
     <br>
-    <input type="text" name = "black_box_warning" placeholder="Insert black box warning here">
+    <input type="text" id="black_box_warning"name = "black_box_warning" placeholder="Insert black box warning here">
     <br>
-    Dosage: 
+    <label for="dosage_quantity"> Dosage: </label>
     <br>
-    <input type="number" min="1" max="10" name = "dosage_quantity" placeholder="Insert dosage here">
+    <input type="number" min="1" max="10" id="dosage_quantity" name = "dosage_quantity" placeholder="Insert dosage here">
     <br>
-    How many times a day are you taking this medicine?
+    <label for="dosage_timing">How many times a day are you taking this medicine? </label>
     <br>
-    <input type="text" name = "dosage_timing" placeholder="Insert dosage here">    
-    Is this medication taken with food?
-    <br>
-    Check the corresponding checkbox for 'True' or 'False'.
-    <br>
-    <input type="checkbox" name = "food" value="T"> True
-    <input type="checkbox" name = "food" value="F"> False
-    <br>
-    Is this medication taken with water?
+    <input type="text" id="dosage_timing" name = "dosage_timing" placeholder="Insert dosage here">
+    <br>    
+    <label for="food">Is this medication taken with food?
     <br>
     Check the corresponding checkbox for 'True' or 'False'.
     <br>
-    <input type="checkbox" name = "water" value= "T"> True
-    <input type="checkbox" name = "water" value= "F"> False
+    </label>
+    <input type="checkbox" id="food" name = "food" value="T"> True
+    <input type="checkbox" id="food" name = "food" value="F"> False
+    <br>
+    <label for="water">
+        Is this medication taken with water?
+    <br>
+    Check the corresponding checkbox for 'True' or 'False'.
+    <br>
+    </label>
+    <input type="checkbox" id="water" name = "water" value= "T"> True
+    <input type="checkbox" id="water" name = "water" value= "F"> False
     <br>
     <input type="submit" value="Press here to submit!" > 
 </form>

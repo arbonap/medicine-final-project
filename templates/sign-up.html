@@ -5,25 +5,46 @@
         Sign-Up
     </strong>
 </h1>
+<h2>
+    <italic>
+        <marquee>
+            Oohhh yeahhhhh &spades; &spades; &hearts;
+        </marquee>
+    </italic>
+</h2>
 <br>
 
 <form action="/sign-up" method="POST">
-First name:
+<label for = "first_name">First name:
 <br>
-<input type="text" name="first_name" placeholder="Insert first name here">
+<input type="text" id="first_name" name="first_name" placeholder="Insert first name here">
+</label>
+<label for="last_name">
 <br>
 Last name:
 <br>
-<input type="text" name="last_name" placeholder="Insert last name here">
+<input type="text" id="last_name" name="last_name" placeholder="Insert last name here">
+</label>
+<label for="email">
 <br>
 Email:
 <br>
-<input type="text" name="email" placeholder="Insert email here">
+<input type="text" id="email" name="email" placeholder="Insert email here">
+</label>
 <br>
+<label for="password">
 Password:
 <br>
-<input type="text" name="password" placeholder="Insert password here">
+<input type="text" id="password" name="password" placeholder="Insert password here">
+</label>
+<label for="phone_number">
 <br>
-Phone number;
-<input type="text" name="phone_number" placeholder="Insert phone number here">
+Phone number:
+<br>
+<input type="text" id="phone_number" name="phone_number" placeholder="Insert phone number here">
+</label>
+<br>
+<input type="submit" value="SIGN-UP TIME!" > 
+
 </form>
+{% endblock %} 

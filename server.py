@@ -10,7 +10,7 @@ app.secret_key = "ABC"
 #???
 
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
-# This is horrible. Fix this so that, instead, it raises an error.
+# This is so Jinja2 doesn't fail silently and gives an error
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -19,18 +19,81 @@ def index():
     """Homepage."""
     return render_template("homepage.html")
 
-# @app.route('/sign-up', methods=['GET'])
-# def sign-up_form():
-#    """Show form for user signup."""
 
-# return render_template("sign-up_form.html")
+@app.route('/sign-up', methods=['GET'])
+def sign_up_form():
+    """Show form for user signup."""
 
-# @app.route('/sign-up', methods=['POST'])
-# def sign-up_process():
-#    """Sign-up process registration."""
+    return render_template("sign-up.html")
 
-# get form variables
-# example = request.form["example"]
+
+@app.route('/sign-up', methods=['POST'])
+def sign_up_process():
+    """Sign-up process registration."""
+
+     # get form variables
+    first_name = request.form["first_name"]
+    last_name = request.form["last_name"]
+    email = request.form["email"]
+    password = request.form["password"]
+    phone_number = request.form["phone_number"]
+
+    new_user = User(first_name=first_name,
+                    last_name=last_name,
+                    email=email,
+                    password=password,
+                    phone=phone_number)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    flash("User %s added." % email)
+
+    return redirect("/login/%s" % new_user.user_id)
+#is this correct?
+
+
+@app.route('/login')
+def login_form():
+    """Show login form."""
+
+    return render_template("login_form.html")
+
+
+@app.route('/loggedin', methods=['POST'])
+def login_user():
+    """Process log-in"""
+
+    # Get form variables
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    user = User.query.filter_by(email=email).one()
+    print user.email
+
+    if not user:
+        flash("Drat! No such user ")
+        return redirect("/signup")
+
+    if user.password != password:
+        flash("Incorrect password, try again.")
+        return redirect("/login")
+
+    session["email"] = user.email
+    # # is this correct? not sure
+
+    flash("Logged in")
+    return redirect("/")
+    # where to direct this page?
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    """Log out."""
+
+    del session["email"]
+    flash("User Logged out.")
+    return redirect("/")
 
 
 @app.route('/register', methods=['GET'])
@@ -77,11 +140,12 @@ def submittal():
     flash("Medication %s added." % med_name)
     return redirect("/")
 
-# @app.route('/pass', methods=["PASS"])
-# def something():
-#     """Something"""
 
-#     return render_template("pass")
+@app.route('/show_meds', methods=["GET"])
+def show_meds():
+    """Shows the meds the user currently takes"""
+    print "Hello world!"
+    return render_template("show_meds.html")
 
 
 # @app.route('/pass', methods=["PASS"])

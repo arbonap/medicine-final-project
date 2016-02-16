@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>
+    <strong>
+        Login-Form
+    </strong>
+</h1>
+<br>
+
+<form action="/loggedin" method='POST'>
+    <label for="email">
+    Email:
+    <br>
+    </label>
+    <input type="text" id="email" name="email" placeholder="Insert your email here">
+    <br>
+    <label for="password">Password:
+    <br>
+    </label>
+    <input type="text" id="password" name="password" placeholder="Insert your password here">
+    <br>
+    <input type="submit" value="SUBMIT IF YOU DARE"> 
+</form>
+<br>
+<a href="/">Click here to go back to the main page</a>
+{% endblock %}
