@@ -79,7 +79,7 @@ def login_user():
         flash("Incorrect password, try again.")
         return redirect("/login")
 
-    session["email"] = user.email
+    session["user_id"] = user.user_id
     # # is this correct? not sure
 
     flash("Logged in")
@@ -107,46 +107,58 @@ def register():
 @app.route('/medication', methods=['POST'])
 def submittal():
     """Getting variables from medication registeration form"""
-    reason = request.form.get("reason")
-    med_name = request.form.get("med_name")
-    side_effects = request.form.get("side_effects")
-    starting_amount = int(request.form.get("starting_amount"))
-    #starting amount is an integer
-    refills_remaining = int(request.form.get("refills_remaining"))
-    #refills remaining is an integer
-    black_box_warning = request.form.get("black_box_warning")
-    dosage_timing = request.form.get("dosage_timing")
-    dosage_quantity = request.form.get("dosage_quantity")
-    #dosage is a string so no need for an integer
-    food = bool(request.form.get("food"))
-    water_boolean = bool(request.form.get("water"))
-    print water_boolean
-    print food
+    logged_in_user_id = session.get("user_id")
+    if logged_in_user_id:
+        reason = request.form.get("reason")
+        med_name = request.form.get("med_name")
+        side_effects = request.form.get("side_effects")
+        starting_amount = int(request.form.get("starting_amount"))
+        #starting amount is an integer
+        refills_remaining = int(request.form.get("refills_remaining"))
+        #refills remaining is an integer
+        black_box_warning = request.form.get("black_box_warning")
+        dosage_timing = request.form.get("dosage_timing")
+        dosage_quantity = request.form.get("dosage_quantity")
+        #dosage is a string so no need for an integer
+        food = bool(request.form.get("food"))
+        water_boolean = bool(request.form.get("water"))
+        print water_boolean
+        print food
 
-    new_prescription = Prescription(reason=reason,
-                                    med_name=med_name,
-                                    side_effects=side_effects,
-                                    starting_amount=starting_amount,
-                                    refills_remaining=refills_remaining,
-                                    black_box_warning=black_box_warning,
-                                    dosage_timing=dosage_timing,
-                                    dosage_quantity=dosage_quantity,
-                                    food=food,
-                                    drink=water_boolean)
-    print new_prescription
-    db.session.add(new_prescription)
-    db.session.commit()
+        new_prescription = Prescription(user_id=logged_in_user_id,
+                                        reason=reason,
+                                        med_name=med_name,
+                                        side_effects=side_effects,
+                                        starting_amount=starting_amount,
+                                        refills_remaining=refills_remaining,
+                                        black_box_warning=black_box_warning,
+                                        dosage_timing=dosage_timing,
+                                        dosage_quantity=dosage_quantity,
+                                        food=food,
+                                        drink=water_boolean)
+        print new_prescription
+        db.session.add(new_prescription)
+        db.session.commit()
 
-    flash("Medication %s added." % med_name)
-    return redirect("/")
+        flash("Medication %s added." % med_name)
+        return redirect("/")
+    else:
+        flash("User is not logged in.")
+        return redirect("/login")
 
 
 @app.route('/show_meds', methods=["GET"])
 def show_meds():
     """Shows the meds the user currently takes"""
-    print "Hello world!"
-    return render_template("show_meds.html")
+    # print sqlalchemy queries here
+    logged_in_user_id = session.get("user_id")
+    if logged_in_user_id:
 
+        all_meds = Prescription.query.filter_by(user_id=logged_in_user_id).all()
+        return render_template("prescriptions_dashboard.html", meds=all_meds)
+    else:
+        flash("User is not logged in.")
+        return redirect("/login")
 
 # @app.route('/pass', methods=["PASS"])
 # def something():

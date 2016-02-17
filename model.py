@@ -50,7 +50,7 @@ class Prescription(db.Model):
     #food?
     drink = db.Column(db.Boolean, nullable=True)
     #water?
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
     #ForeignKey connecting prescription and user
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.doctor_id'))
     #ForeignKey connecting prescription and doctor
