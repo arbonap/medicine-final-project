@@ -50,7 +50,7 @@ def sign_up_process():
     flash("User %s added." % email)
 
     return redirect("/login/%s" % new_user.user_id)
-#is this correct?
+    #is this correct?
 
 
 @app.route('/login')
@@ -68,12 +68,12 @@ def login_user():
     email = request.form.get("email")
     password = request.form.get("password")
 
-    user = User.query.filter_by(email=email).one()
-    print user.email
+    user = User.query.filter_by(email=email).first()
+    # print user.email
 
     if not user:
-        flash("Drat! No such user ")
-        return redirect("/signup")
+        flash("Drat! No such user. Sign-up for an account below: ")
+        return redirect("/sign-up")
 
     if user.password != password:
         flash("Incorrect password, try again.")
@@ -153,9 +153,15 @@ def show_meds():
     # print sqlalchemy queries here
     logged_in_user_id = session.get("user_id")
     if logged_in_user_id:
-
         all_meds = Prescription.query.filter_by(user_id=logged_in_user_id).all()
-        return render_template("prescriptions_dashboard.html", meds=all_meds)
+
+        user_first_name = session.get("first_name")
+
+        first_name = User.query.filter_by(first_name=user_first_name).first()
+        #must be .first() rather than .one() because .one() expects ATLEAST one and only one object
+        # while .first() will throw an error
+        return render_template("prescriptions_dashboard.html", meds=all_meds,
+                               user_first_name=first_name)
     else:
         flash("User is not logged in.")
         return redirect("/login")
