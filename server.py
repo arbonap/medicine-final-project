@@ -49,7 +49,7 @@ def sign_up_process():
 
     flash("User %s added." % email)
 
-    return redirect("/login/%s" % new_user.user_id)
+    return redirect('/')
     #is this correct?
 
 
@@ -80,6 +80,8 @@ def login_user():
         return redirect("/login")
 
     session["user_id"] = user.user_id
+    session['email'] = user.email
+    session['first_name'] = user.first_name
     # # is this correct? not sure
 
     flash("Logged in")
@@ -91,7 +93,10 @@ def login_user():
 def logout():
     """Log out."""
 
-    del session["email"]
+    # del session["user_id"]
+    # del session["email"]
+    # del session["first_name"]
+    session.clear()
     flash("User Logged out.")
     return redirect("/")
 
