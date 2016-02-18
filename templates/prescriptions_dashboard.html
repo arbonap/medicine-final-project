@@ -1,28 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1> Hello and welcome, {{ user_first_name }} ! </h1>
+<h1> Hello and welcome, {{ user.first_name }} ! </h1>
 <br>
-This should be a long line of meds:
+<h2> You are currently signed in as {{ user.email }} </h2>
+<h3>This is your prescription dashboard:</h3>
 <br>
 {{ meds }}
 <br>
-This should be a list of meds:
-<ul>
+This is your user profile object: <br>
+{{ user }}
+<br>
+<i>Prescription information: </i>
+<ol>
 
 {% for med in meds %}
     <br>
-    <strong>Medication name: {{ med.med_name }}</strong>
-    <li>Side effects: {{ med.side_effects }}</li>
-    <li>Reason for taking medication: {{ med.reason }}</li>
-    <li>Black box warnings: {{ med.black_box_warning }}</li>
-    <li>Is this taken with food? {{ med.food }} </li>
-    <li>Is this taken with drink? {{ med.drink }} </li>
-    <li> How many times a day do you take your meds? {{ med.dosage_timing }} </li>
-    <li> Each time you take this medicine, how many units of this medicine do you take? {{ med.dosage_quantity }} </li>
+    <li>Medication name: {{ med.med_name }}</li>
+        <ul>
+        <li>Side effects: {{ med.side_effects }}</li>
+        <li>Reason for taking medication: {{ med.reason }}</li>
+        <li>Black box warnings: {{ med.black_box_warning }}</li>
+        <li>Is this taken with food? {{ med.food }} </li>
+        <li>Is this taken with drink? {{ med.drink }} </li>
+        <li> How many times a day do you take your meds? {{ med.dosage_timing }} </li>
+        <li> Each time you take this medicine, how many units of this medicine do you take? {{ med.dosage_quantity }} </li>
+        </ul>
 
 {% endfor %}
-</ul>
+</ol>
 
- {% endblock %}
+{% endblock %}
 

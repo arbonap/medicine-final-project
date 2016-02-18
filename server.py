@@ -72,8 +72,8 @@ def login_user():
     # print user.email
 
     if not user:
-        flash("Drat! No such user. Sign-up for an account below: ")
-        return redirect("/sign-up")
+        flash("Drat! No such user or incorrect username.")
+        return redirect("/login")
 
     if user.password != password:
         flash("Incorrect password, try again.")
@@ -155,13 +155,11 @@ def show_meds():
     if logged_in_user_id:
         all_meds = Prescription.query.filter_by(user_id=logged_in_user_id).all()
 
-        user_first_name = session.get("first_name")
-
-        first_name = User.query.filter_by(first_name=user_first_name).first()
         #must be .first() rather than .one() because .one() expects ATLEAST one and only one object
         # while .first() will throw an error
+        user = User.query.filter_by(user_id=logged_in_user_id).first()
         return render_template("prescriptions_dashboard.html", meds=all_meds,
-                               user_first_name=first_name)
+                               user=user)
     else:
         flash("User is not logged in.")
         return redirect("/login")
