@@ -2,6 +2,9 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Prescription, Schedule, Doctor
+from datetime import datetime, timedelta
+# from datetime the module, you're importing datetime the class (both are called datetime)
+# static methods are called directly from the class
 
 app = Flask(__name__)
 
@@ -17,6 +20,9 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def index():
     """Homepage."""
+    person_id = session.get("user_id")
+    reminder(person_id)
+    # person_id is the argument
     return render_template("homepage.html")
 
 
@@ -113,6 +119,7 @@ def register():
 def submittal():
     """Getting variables from medication registeration form"""
     logged_in_user_id = session.get("user_id")
+
     if logged_in_user_id:
         reason = request.form.get("reason")
         med_name = request.form.get("med_name")
@@ -122,13 +129,16 @@ def submittal():
         refills_remaining = int(request.form.get("refills_remaining"))
         #refills remaining is an integer
         black_box_warning = request.form.get("black_box_warning")
-        dosage_timing = request.form.get("dosage_timing")
-        dosage_quantity = request.form.get("dosage_quantity")
+        first_dose = request.form.get("first_dose")
+        dosage_timing = int(request.form.get("dosage_timing"))
+        dosage_quantity = int(request.form.get("dosage_quantity"))
         #dosage is a string so no need for an integer
         food = bool(request.form.get("food"))
         water_boolean = bool(request.form.get("water"))
         print water_boolean
         print food
+        print first_dose
+        print "LOOK AT ME HERE!!!!!!!!!!! ABOVE IS FIRST DOSE TIME!!!!!!!!!!"
 
         new_prescription = Prescription(user_id=logged_in_user_id,
                                         reason=reason,
@@ -137,6 +147,7 @@ def submittal():
                                         starting_amount=starting_amount,
                                         refills_remaining=refills_remaining,
                                         black_box_warning=black_box_warning,
+                                        first_dose=first_dose,
                                         dosage_timing=dosage_timing,
                                         dosage_quantity=dosage_quantity,
                                         food=food,
@@ -163,12 +174,35 @@ def show_meds():
         #must be .first() rather than .one() because .one() expects ATLEAST one and only one object
         # while .first() will throw an error
         user = User.query.filter_by(user_id=logged_in_user_id).first()
+        # datetime.strptime(input_datetime, "%b-%d-%Y-%I-%M")
+
         return render_template("prescriptions_dashboard.html", meds=all_meds,
                                user=user)
     else:
         flash("User is not logged in.")
         return redirect("/login")
 
+
+def reminder(user_id):
+    # user_id is the parameter
+    """Reminds user of when to take their meds."""
+
+    current_dt = datetime.now()
+    hour_from_now = current_dt + timedelta(hours=1)
+    hour_from_now = hour_from_now.time()
+    current_dt = current_dt.time()
+
+    prescription_list = Prescription.query.filter_by(user_id=user_id).all()
+    print prescription_list
+
+    for prescription in prescription_list:
+        time_of_first_dose = prescription.first_dose.time()
+        if current_dt <= time_of_first_dose and time_of_first_dose <= hour_from_now:
+            message = "Reminder: {num_doses} doses {med_name} ".format(
+                num_doses=prescription.dosage_quantity,
+                med_name=prescription.med_name)
+            flash(message)
+            print message
 # @app.route('/pass', methods=["PASS"])
 # def something():
 #     """Something"""

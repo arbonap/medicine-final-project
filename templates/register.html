@@ -5,9 +5,10 @@
     <br>
 </marquee>
 <form action ="/medication" method="POST">
-    <input type="date"/>
+    
     <br>
     <label for="reason">Condition associated with this medicine:</label>
+    <br>
     <input type="text" id="reason" name = "reason" placeholder="Insert condition here">
     <br>
     <label for="med_name">Name of medication:</label>
@@ -20,11 +21,11 @@
     <br>
     <label for="starting_amount"> Starting amount of medicine: </label>
     <br>
-    <input type="text" id="side_effects" name = "starting_amount" placeholder="Insert starting amount of medicine here">
+    <input type="number" id="side_effects" name = "starting_amount" placeholder="Insert starting amount of medicine here">
     <br>
     <label for="refills_remaining"> Number of Refills remaining:</label>
     <br>
-    <input type="text" id="refills_remaining" name = "refills_remaining" placeholder="Insert # of refills remaining here">
+    <input type="number" id="refills_remaining" name = "refills_remaining" placeholder="Insert # of refills remaining here">
     <br>
     <label for="black_box_warning"> Black-box warnings: </label>
     <br>
@@ -36,13 +37,20 @@
     <br>
     <label for="dosage_timing">How many times a day are you taking this medicine? </label>
     <br>
-    <input type="text" id="dosage_timing" name = "dosage_timing" placeholder="Insert dosage here">
+    <input type="number" id="dosage_timing" name = "dosage_timing" 
+    placeholder="Insert dosage here">
+    <br>
+    <label for="first_dose">Input date and time for the first 
+        dose you took this medicine (*necessary for calculating reminders):</label>
+    <br>
+    <input type="datetime-local" id="first_dose" name = "first_dose">
     <br>    
     <label for="food">Is this medication taken with food?
     <br>
     Check the corresponding checkbox for 'True' or 'False'.
     <br>
     </label>
+    <br>
     <input type="checkbox" id="food" name = "food" value="T"> True
     <input type="checkbox" id="food" name = "food" value="F"> False
     <br>
@@ -52,6 +60,7 @@
     Check the corresponding checkbox for 'True' or 'False'.
     <br>
     </label>
+    <br>
     <input type="checkbox" id="water" name = "water" value= "T"> True
     <input type="checkbox" id="water" name = "water" value= "F"> False
     <br>

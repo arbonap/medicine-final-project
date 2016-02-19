@@ -45,7 +45,8 @@ class Prescription(db.Model):
     refills_remaining = db.Column(db.Integer, nullable=True)
     black_box_warning = db.Column(db.String(300), nullable=True)
     dosage_quantity = db.Column(db.Integer, nullable=False)
-    dosage_timing = db.Column(db.String(20), nullable=False)
+    dosage_timing = db.Column(db.Integer, nullable=False)
+    first_dose = db.Column(db.DateTime, nullable=False)
     food = db.Column(db.Boolean, nullable=True)
     #food?
     drink = db.Column(db.Boolean, nullable=True)

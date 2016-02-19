@@ -4,6 +4,11 @@
 <h1> Hello and welcome, {{ user.first_name }} ! </h1>
 <br>
 <h2> You are currently signed in as {{ user.email }} </h2>
+
+<h4>
+    <a href="/logout">Click here to sign out </a>
+</h4>
+
 <h3>This is your prescription dashboard:</h3>
 <br>
 {{ meds }}
@@ -25,6 +30,7 @@ This is your user profile object: <br>
             <li>Is this taken with drink? {{ med.drink }} </li>
             <li> How many times a day do you take your meds? {{ med.dosage_timing }} </li>
             <li> Each time you take this medicine, how many units of this medicine do you take? {{ med.dosage_quantity }} </li>
+            <li>You took your first dose of {{ med.med_name }} ever at {{ med.first_dose }}</li>
         </ul>
 {% endfor %}
 </ol>
@@ -44,6 +50,11 @@ This is your user profile object: <br>
 
     {% endfor %}
 </ol>
+
+<i>Appointments:</i>
+<ol>
+    To be announced
+</ol>   
 
 {% endblock %}
 
