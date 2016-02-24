@@ -47,6 +47,7 @@ class Prescription(db.Model):
     dosage_quantity = db.Column(db.Integer, nullable=False)
     dosage_timing = db.Column(db.Integer, nullable=False)
     first_dose = db.Column(db.DateTime, nullable=False)
+    last_dose = db.Column(db.DateTime, nullable=False)
     food = db.Column(db.Boolean, nullable=True)
     #food?
     drink = db.Column(db.Boolean, nullable=True)
@@ -84,8 +85,12 @@ class Schedule(db.Model):
     schedule_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                             nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
-    prescription_id = db.Column(db.Integer, nullable=False)
-    timestamp = db.Column(db.DateTime)
+    timestamp = db.Column(db.DateTime, nullable=False)
+    # Do I even need this timestamp?
+
+    # add two more fields to Schedule: starting date and end date ??
+    # make one object per time
+    # be sure to dropdb after editing model.py
     #define  relationship to users
 
     def __repr__(self):
@@ -119,6 +124,23 @@ class Doctor(db.Model):
                                        self.office_address)
 
 
+class Dosage_time(db.Model):
+    """Timing for when user takes medication"""
+
+    ___tablename___ = "dosage_times"
+
+    time_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    timestamp = db.Column(db.Time, nullable=True)
+    dosage_id = db.Column(db.Integer, db.ForeignKey('prescriptions.prescription_id'))
+    # define a relationship to prescriptions
+    prescriptions = db.relationship("Prescription", backref=db.backref("dosage_times"),
+                                    order_by=dosage_id)
+
+    def __repr__(self):
+        """Provides helpful representation data when printed for debugging purposes."""
+
+        return "<Time id time_id=%s Timestamp  timestamp=%s>" % (self.time_id, self.timestamp)
+
 ##############################################################################
 # Helper functions
 
@@ -131,6 +153,7 @@ def connect_to_db(app):
 #    app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
+
 
 
 if __name__ == "__main__":

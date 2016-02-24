@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, User, Prescription, Schedule, Doctor
+from model import connect_to_db, db, User, Prescription, Schedule, Doctor, Dosage_time
 from datetime import datetime, timedelta
 # from datetime the module, you're importing datetime the class (both are called datetime)
 # static methods are called directly from the class
@@ -20,8 +20,16 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def index():
     """Homepage."""
-    person_id = session.get("user_id")
-    reminder(person_id)
+    user_id = session.get("user_id")
+
+    email = session.get("email")
+
+    reminder(user_id)
+
+    if user_id:
+        flash("You are currently logged in as %s " % email)
+    else:
+        flash("You are not logged in as anyone")
     # person_id is the argument
     return render_template("homepage.html")
 
@@ -90,7 +98,7 @@ def login_user():
     session['first_name'] = user.first_name
     # # is this correct? not sure
 
-    flash("Logged in")
+    flash("Logged in as %s" % email)
     return redirect("/")
     # where to direct this page?
 
@@ -103,7 +111,7 @@ def logout():
     # del session["email"]
     # del session["first_name"]
     session.clear()
-    flash("User Logged out.")
+    flash("User Logged out...Goodbye!")
     return redirect("/")
 
 
@@ -111,6 +119,12 @@ def logout():
 def register():
     """Sends user to fill out medicine information"""
     #Get form variables
+    logged_in_user_id = session.get("user_id")
+    logged_in_user_email = session.get("email")
+    if logged_in_user_id:
+        flash("You are currently logged in as %s " % logged_in_user_email)
+    else:
+        flash("You are not logged in as anyone")
 
     return render_template("register.html")
 
@@ -119,6 +133,7 @@ def register():
 def submittal():
     """Getting variables from medication registeration form"""
     logged_in_user_id = session.get("user_id")
+    logged_in_user_email = session.get("email")
 
     if logged_in_user_id:
         reason = request.form.get("reason")
@@ -130,15 +145,20 @@ def submittal():
         #refills remaining is an integer
         black_box_warning = request.form.get("black_box_warning")
         first_dose = request.form.get("first_dose")
+        last_dose = request.form.get("last_dose")
         dosage_timing = int(request.form.get("dosage_timing"))
         dosage_quantity = int(request.form.get("dosage_quantity"))
         #dosage is a string so no need for an integer
         food = bool(request.form.get("food"))
         water_boolean = bool(request.form.get("water"))
+        daily_schedule = request.form.getlist("daily_schedule")
+
+
         print water_boolean
         print food
         print first_dose
-        print "LOOK AT ME HERE!!!!!!!!!!! ABOVE IS FIRST DOSE TIME!!!!!!!!!!"
+        print daily_schedule
+        print "LOOK AT ME HERE!!!!!!!!!!! ABOVE IS DAILY SCHEDULE TIME!!!!!!!!!!"
 
         new_prescription = Prescription(user_id=logged_in_user_id,
                                         reason=reason,
@@ -148,15 +168,34 @@ def submittal():
                                         refills_remaining=refills_remaining,
                                         black_box_warning=black_box_warning,
                                         first_dose=first_dose,
+                                        last_dose=last_dose,
                                         dosage_timing=dosage_timing,
                                         dosage_quantity=dosage_quantity,
                                         food=food,
-                                        drink=water_boolean)
-        print new_prescription
+                                        drink=water_boolean,
+                                        )
         db.session.add(new_prescription)
+
+        for time_string in daily_schedule:
+            print time_string
+        #   1.first convert time string into datetime object that's just the time in HOUR:MINUTE:SECONDS format
+            timestamp = datetime.strptime(time_string, "%H:%M:%S")
+            print timestamp
+        #   2. make dosage time object:
+        #  ???????????????????????? uh
+            new_dosage_time = Dosage_time(timestamp=timestamp,
+                                          dosage_id=new_prescription.prescription_id
+                                          )
+            print new_dosage_time
+        #   3. do db.add -  #
+            db.session.add(new_dosage_time)
+
+        print new_prescription
         db.session.commit()
 
+
         flash("Medication %s added." % med_name)
+        flash("You are logged in as %s" % logged_in_user_email)
         return redirect("/")
     else:
         flash("User is not logged in.")
@@ -186,7 +225,7 @@ def show_meds():
 def reminder(user_id):
     # user_id is the parameter
     """Reminds user of when to take their meds."""
-
+    print "IM IN MY REMINDER!!!!!"
     current_dt = datetime.now()
     hour_from_now = current_dt + timedelta(hours=1)
     hour_from_now = hour_from_now.time()
@@ -198,11 +237,21 @@ def reminder(user_id):
     for prescription in prescription_list:
         time_of_first_dose = prescription.first_dose.time()
         if current_dt <= time_of_first_dose and time_of_first_dose <= hour_from_now:
+            # make conditional an hour from now and within current hour
             message = "Reminder: {num_doses} doses {med_name} ".format(
                 num_doses=prescription.dosage_quantity,
                 med_name=prescription.med_name)
             flash(message)
+            return message
             print message
+            print "!!!!!" * 20
+
+            # make nav bar in html
+            # make sure i'm still being logged in
+            # if already logged in, get message that user is already logged in
+            # put logged in message in nav bar - make visual - in jinja
+            # if "user_id" in session
+
 # @app.route('/pass', methods=["PASS"])
 # def something():
 #     """Something"""
