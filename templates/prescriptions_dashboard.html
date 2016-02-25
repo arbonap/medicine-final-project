@@ -31,21 +31,38 @@ This is your user profile object: <br>
             <li> How many times a day do you take your meds? {{ med.dosage_timing }} </li>
             <li> Each time you take this medicine, how many units of this medicine do you take? {{ med.dosage_quantity }} </li>
             <li>You took your first dose of {{ med.med_name }} ever at {{ med.first_dose }}</li>
+    <br>
+
         </ul>
-{% endfor %}
 </ol>
+{% endfor %}
+<br>
+Dosage time object:
+{{ rx_timestamp }}
+<br>
+<br>
+{% for med in meds %}
+<br>
+<ol><li>Upcoming medication times for: {{ med.med_name}}</li></ol>
+{% endfor %}
+    {% for timestamp in rx_timestamp%}
+    <ul>
+
+    <li>{{ timestamp.timestamp }}</li>
+</ul>
+{% endfor %}
 <br>
 
 <i>Refill information:</i>
 <ol>
     {% for refill in meds %}
-    
+
         <li>Medication name: {{ refill.med_name }} </li>
             <ul>
                 <li>Refills remaining: {{ refill.refills_remaining }} </li>
             </ul>
 
-    
+
 
 
     {% endfor %}
@@ -54,7 +71,7 @@ This is your user profile object: <br>
 <i>Appointments:</i>
 <ol>
     To be announced
-</ol>   
+</ol>
 
 {% endblock %}
 

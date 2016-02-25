@@ -135,7 +135,9 @@ class Dosage_time(db.Model):
     # define a relationship to prescriptions
     prescriptions = db.relationship("Prescription", backref=db.backref("dosage_times"),
                                     order_by=dosage_id)
-
+# know what exactly dosage_id and prescriptions are relating to
+# comprehend the one to one and one to many relationships in your model
+#
     def __repr__(self):
         """Provides helpful representation data when printed for debugging purposes."""
 

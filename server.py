@@ -175,6 +175,7 @@ def submittal():
                                         drink=water_boolean,
                                         )
         db.session.add(new_prescription)
+        db.session.commit()
 
         for time_string in daily_schedule:
             print time_string
@@ -192,7 +193,6 @@ def submittal():
 
         print new_prescription
         db.session.commit()
-
 
         flash("Medication %s added." % med_name)
         flash("You are logged in as %s" % logged_in_user_email)
@@ -213,10 +213,12 @@ def show_meds():
         #must be .first() rather than .one() because .one() expects ATLEAST one and only one object
         # while .first() will throw an error
         user = User.query.filter_by(user_id=logged_in_user_id).first()
-        # datetime.strptime(input_datetime, "%b-%d-%Y-%I-%M")
 
+        # datetime.strptime(input_datetime, "%b-%d-%Y-%I-%M")
+        rx_timestamp = Dosage_time.query.filter_by(dosage_id=logged_in_user_id).all()
+        # should gives back a query for all timestamps from logged in user
         return render_template("prescriptions_dashboard.html", meds=all_meds,
-                               user=user)
+                               user=user, rx_timestamp=rx_timestamp)
     else:
         flash("User is not logged in.")
         return redirect("/login")
