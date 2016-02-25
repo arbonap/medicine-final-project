@@ -86,6 +86,7 @@ class Schedule(db.Model):
                             nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False)
+
     # Do I even need this timestamp?
 
     # add two more fields to Schedule: starting date and end date ??
@@ -131,6 +132,7 @@ class Dosage_time(db.Model):
 
     time_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     timestamp = db.Column(db.Time, nullable=True)
+    # TODO: CHANGE DOSAGE_ID TO PRESCRIPTION_ID, HERE AND LINE 188 ON SERVER.PY
     dosage_id = db.Column(db.Integer, db.ForeignKey('prescriptions.prescription_id'))
     # define a relationship to prescriptions
     prescriptions = db.relationship("Prescription", backref=db.backref("dosage_times"),
