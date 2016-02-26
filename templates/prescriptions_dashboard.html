@@ -30,9 +30,9 @@ This is your user profile object: <br>
             <li>Is this taken with drink? {{ med.drink }} </li>
             <li> How many times a day do you take your meds? {{ med.dosage_timing }} </li>
             <li> Each time you take this medicine, how many units of this medicine do you take? {{ med.dosage_quantity }} </li>
-            <li>You took your first dose of {{ med.med_name }} ever at {{ med.first_dose }}</li>
+            <li>You took your first dose of {{ med.med_name }} ever at {{ med.start_date }}</li>
             <li>Your last dose of {{ med.med_name }} should be
-                taken at {{ med.last_dose }}</li>
+                taken at {{ med.end_date }}</li>
     <br>
 
         </ul>

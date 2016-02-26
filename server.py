@@ -144,8 +144,8 @@ def submittal():
         refills_remaining = int(request.form.get("refills_remaining"))
         #refills remaining is an integer
         black_box_warning = request.form.get("black_box_warning")
-        first_dose = request.form.get("first_dose")
-        last_dose = request.form.get("last_dose")
+        start_date = request.form.get("start_date")
+        end_date = request.form.get("end_date")
         dosage_timing = int(request.form.get("dosage_timing"))
         dosage_quantity = int(request.form.get("dosage_quantity"))
         #dosage is a string so no need for an integer
@@ -156,7 +156,7 @@ def submittal():
 
         print water_boolean
         print food
-        print first_dose
+        print start_date
         print daily_schedule
         print "LOOK AT ME HERE!!!!!!!!!!! ABOVE IS DAILY SCHEDULE TIME!!!!!!!!!!"
 
@@ -180,8 +180,8 @@ def submittal():
                                         starting_amount=starting_amount,
                                         refills_remaining=refills_remaining,
                                         black_box_warning=black_box_warning,
-                                        first_dose=first_dose,
-                                        last_dose=last_dose,
+                                        start_date=start_date,
+                                        end_date=end_date,
                                         dosage_timing=dosage_timing,
                                         dosage_quantity=dosage_quantity,
                                         food=food,
@@ -234,7 +234,7 @@ def reminder(user_id):
     print prescription_list
 
     for prescription in prescription_list:
-        time_of_first_dose = prescription.first_dose.time()
+        time_of_first_dose = prescription.start_date.time()
         if current_dt <= time_of_first_dose and time_of_first_dose <= hour_from_now:
             # make conditional an hour from now and within current hour
             message = "Reminder: {num_doses} doses {med_name} ".format(

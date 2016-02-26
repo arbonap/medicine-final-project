@@ -46,8 +46,8 @@ class Prescription(db.Model):
     black_box_warning = db.Column(db.String(300), nullable=True)
     dosage_quantity = db.Column(db.Integer, nullable=False)
     dosage_timing = db.Column(db.Integer, nullable=False)
-    first_dose = db.Column(db.DateTime, nullable=False)
-    last_dose = db.Column(db.DateTime, nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
     food = db.Column(db.Boolean, nullable=True)
     #food?
     drink = db.Column(db.Boolean, nullable=True)
@@ -141,11 +141,11 @@ class Doctor(db.Model):
 #                                     order_by=dosage_id)
 # know what exactly dosage_id and prescriptions are relating to
 # comprehend the one to one and one to many relationships in your model
-#
-    # def __repr__(self):
-    #     """Provides helpful representation data when printed for debugging purposes."""
 
-    #     return "<Time id time_id=%s Timestamp  timestamp=%s>" % (self.time_id, self.timestamp)
+#     def __repr__(self):
+#         """Provides helpful representation data when printed for debugging purposes."""
+
+#         return "<Time id time_id=%s Timestamp  timestamp=%s>" % (self.time_id, self.timestamp)
 
 ##############################################################################
 # Helper functions
@@ -159,7 +159,6 @@ def connect_to_db(app):
 #    app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
-
 
 
 if __name__ == "__main__":
