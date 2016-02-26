@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, User, Prescription, Schedule, Doctor, Dosage_time
+from model import connect_to_db, db, User, Prescription, Schedule, Doctor
 from datetime import datetime, timedelta
 # from datetime the module, you're importing datetime the class (both are called datetime)
 # static methods are called directly from the class
@@ -160,6 +160,19 @@ def submittal():
         print daily_schedule
         print "LOOK AT ME HERE!!!!!!!!!!! ABOVE IS DAILY SCHEDULE TIME!!!!!!!!!!"
 
+        for time_string in daily_schedule:
+            print time_string
+        #   1.first convert time string into datetime object that's just the time in HOUR:MINUTE:SECONDS format
+            timestamp = datetime.strptime(time_string, "%H:%M:%S")
+            print timestamp
+        #   2. make dosage time object:
+        #  ???????????????????????? uh
+            new_dosage_time = Schedule(timestamp=timestamp)
+            print new_dosage_time
+        #   3. do db.add -  #
+            db.session.add(new_dosage_time)
+            db.session.commit()
+
         new_prescription = Prescription(user_id=logged_in_user_id,
                                         reason=reason,
                                         med_name=med_name,
@@ -173,25 +186,9 @@ def submittal():
                                         dosage_quantity=dosage_quantity,
                                         food=food,
                                         drink=water_boolean,
+                                        schedule=new_dosage_time
                                         )
         db.session.add(new_prescription)
-        db.session.commit()
-
-        for time_string in daily_schedule:
-            print time_string
-        #   1.first convert time string into datetime object that's just the time in HOUR:MINUTE:SECONDS format
-            timestamp = datetime.strptime(time_string, "%H:%M:%S")
-            print timestamp
-        #   2. make dosage time object:
-        #  ???????????????????????? uh
-            new_dosage_time = Dosage_time(timestamp=timestamp,
-                                          dosage_id=new_prescription.prescription_id
-                                          )
-            print new_dosage_time
-        #   3. do db.add -  #
-            db.session.add(new_dosage_time)
-
-        print new_prescription
         db.session.commit()
 
         flash("Medication %s added." % med_name)
@@ -215,7 +212,7 @@ def show_meds():
         user = User.query.filter_by(user_id=logged_in_user_id).first()
 
         # datetime.strptime(input_datetime, "%b-%d-%Y-%I-%M")
-        rx_timestamp = Dosage_time.query.filter_by(dosage_id=logged_in_user_id).all()
+        rx_timestamp = Schedule.query.filter_by(schedule_id=logged_in_user_id).all()
         # should gives back a query for all timestamps from logged in user
         return render_template("prescriptions_dashboard.html", meds=all_meds,
                                user=user, rx_timestamp=rx_timestamp)

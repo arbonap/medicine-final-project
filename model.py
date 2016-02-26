@@ -84,8 +84,12 @@ class Schedule(db.Model):
 
     schedule_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                             nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False)
+    # user_id = db.Column(db.Integer, nullable=False)
+    timestamp = db.Column(db.Time, nullable=False)
+    # prescription_id = db.Column(db.Integer, db.ForeignKey('prescriptions.prescription_id'))
+    # define a relationship to prescriptions
+    # prescriptions = db.relationship("Prescription", backref=db.backref("schedules"),
+                                    # order_by=prescription_id)
 
     # Do I even need this timestamp?
 
@@ -96,9 +100,7 @@ class Schedule(db.Model):
 
     def __repr__(self):
         """Provides helpful representation data when printed for debugging purposes."""
-        return "<Schedule_id schedule_id=%s user_id user_id=%s prescription_id=%s \
-        timestamp timestamp=%s>" % (self.schedule_id, self.user_id,
-                                    self.prescription_id, self.timestamp)
+        return "<Schedule_id schedule_id=%s timestamp timestamp=%s>" % (self.schedule_id, self.timestamp)
 
 
 class Doctor(db.Model):
@@ -125,25 +127,25 @@ class Doctor(db.Model):
                                        self.office_address)
 
 
-class Dosage_time(db.Model):
-    """Timing for when user takes medication"""
+# class Dosage_time(db.Model):
+#     """Timing for when user takes medication"""
 
-    ___tablename___ = "dosage_times"
+#     ___tablename___ = "dosage_times"
 
-    time_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    timestamp = db.Column(db.Time, nullable=True)
-    # TODO: CHANGE DOSAGE_ID TO PRESCRIPTION_ID, HERE AND LINE 188 ON SERVER.PY
-    dosage_id = db.Column(db.Integer, db.ForeignKey('prescriptions.prescription_id'))
-    # define a relationship to prescriptions
-    prescriptions = db.relationship("Prescription", backref=db.backref("dosage_times"),
-                                    order_by=dosage_id)
+#     time_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+#     timestamp = db.Column(db.Time, nullable=True)
+#     # TODO: CHANGE DOSAGE_ID TO PRESCRIPTION_ID, HERE AND LINE 188 ON SERVER.PY
+#     dosage_id = db.Column(db.Integer, db.ForeignKey('prescriptions.prescription_id'))
+#     # define a relationship to prescriptions
+#     prescriptions = db.relationship("Prescription", backref=db.backref("dosage_times"),
+#                                     order_by=dosage_id)
 # know what exactly dosage_id and prescriptions are relating to
 # comprehend the one to one and one to many relationships in your model
 #
-    def __repr__(self):
-        """Provides helpful representation data when printed for debugging purposes."""
+    # def __repr__(self):
+    #     """Provides helpful representation data when printed for debugging purposes."""
 
-        return "<Time id time_id=%s Timestamp  timestamp=%s>" % (self.time_id, self.timestamp)
+    #     return "<Time id time_id=%s Timestamp  timestamp=%s>" % (self.time_id, self.timestamp)
 
 ##############################################################################
 # Helper functions
