@@ -56,8 +56,8 @@ class Prescription(db.Model):
     #ForeignKey connecting prescription and user
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.doctor_id'))
     #ForeignKey connecting prescription and doctor
-    schedule_id = db.Column(db.Integer, db.ForeignKey('schedules.schedule_id'))
-    #ForeignKey connectiong prescription and schedule
+    # schedule_id = db.Column(db.Integer, db.ForeignKey('schedules.schedule_id'))
+    #ForeignKey connection: prescription and schedule
 
     #Define a relationship to user
     user = db.relationship("User", backref=db.backref("prescriptions"),
@@ -68,9 +68,9 @@ class Prescription(db.Model):
                              order_by=prescription_id)
 
     #Define a relationship to schedules
-    schedule = db.relationship("Schedule",
-                               backref=db.backref("prescriptions"),
-                               order_by=prescription_id)
+    # schedule = db.relationship("Schedule",
+    #                            backref=db.backref("prescriptions"),
+    #                            order_by=prescription_id)
 
     def __repr__(self):
         """Provides helpful representation data when printed for debugging purposes."""
@@ -84,19 +84,9 @@ class Schedule(db.Model):
 
     schedule_id = db.Column(db.Integer, primary_key=True, autoincrement=True,
                             nullable=False)
-    # user_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+    prescription_id = db.Column(db.Integer, db.ForeignKey('prescriptions.prescription_id'), nullable=False)
     timestamp = db.Column(db.Time, nullable=False)
-    # prescription_id = db.Column(db.Integer, db.ForeignKey('prescriptions.prescription_id'))
-    # define a relationship to prescriptions
-    # prescriptions = db.relationship("Prescription", backref=db.backref("schedules"),
-                                    # order_by=prescription_id)
-
-    # Do I even need this timestamp?
-
-    # add two more fields to Schedule: starting date and end date ??
-    # make one object per time
-    # be sure to dropdb after editing model.py
-    #define  relationship to users
 
     def __repr__(self):
         """Provides helpful representation data when printed for debugging purposes."""

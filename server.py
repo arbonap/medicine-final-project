@@ -133,7 +133,9 @@ def register():
 def submittal():
     """Getting variables from medication registeration form"""
     logged_in_user_id = session.get("user_id")
+    print logged_in_user_id
     logged_in_user_email = session.get("email")
+    print logged_in_user_email
 
     if logged_in_user_id:
         reason = request.form.get("reason")
@@ -160,18 +162,6 @@ def submittal():
         print daily_schedule
         print "LOOK AT ME HERE!!!!!!!!!!! ABOVE IS DAILY SCHEDULE TIME!!!!!!!!!!"
 
-        for time_string in daily_schedule:
-            print time_string
-        #   1.first convert time string into datetime object that's just the time in HOUR:MINUTE:SECONDS format
-            timestamp = datetime.strptime(time_string, "%H:%M:%S")
-            print timestamp
-        #   2. make dosage time object:
-        #  ???????????????????????? uh
-            new_dosage_time = Schedule(timestamp=timestamp)
-            print new_dosage_time
-        #   3. do db.add -  #
-            db.session.add(new_dosage_time)
-            db.session.commit()
 
         new_prescription = Prescription(user_id=logged_in_user_id,
                                         reason=reason,
@@ -186,10 +176,30 @@ def submittal():
                                         dosage_quantity=dosage_quantity,
                                         food=food,
                                         drink=water_boolean,
-                                        schedule=new_dosage_time
                                         )
         db.session.add(new_prescription)
         db.session.commit()
+
+        new_prescription_id = Prescription.query.filter_by(user_id=logged_in_user_id,
+                                                           med_name=med_name,
+                                                           start_date=start_date).first()
+
+        print new_prescription_id
+
+        for time_string in daily_schedule:
+            print time_string
+        #   1.first convert time string into datetime object that's just the time in HOUR:MINUTE:SECONDS format
+            timestamp = datetime.strptime(time_string, "%H:%M:%S")
+            print timestamp
+        #   2. make dosage time object:
+        #  ???????????????????????? uh
+            new_dosage_time = Schedule(user_id=logged_in_user_id,
+                                       timestamp=timestamp,
+                                       prescription_id=new_prescription_id.user_id)
+            print new_dosage_time
+        #   3. do db.add -  #
+            db.session.add(new_dosage_time)
+            db.session.commit()
 
         flash("Medication %s added." % med_name)
         flash("You are logged in as %s" % logged_in_user_email)
@@ -212,10 +222,13 @@ def show_meds():
         user = User.query.filter_by(user_id=logged_in_user_id).first()
 
         # datetime.strptime(input_datetime, "%b-%d-%Y-%I-%M")
-        rx_timestamp = Schedule.query.filter_by(schedule_id=logged_in_user_id).all()
+        rx_timestamp = Schedule.query.filter_by(user_id=logged_in_user_id).all()
+        print rx_timestamp
         # should gives back a query for all timestamps from logged in user
-        return render_template("prescriptions_dashboard.html", meds=all_meds,
-                               user=user, rx_timestamp=rx_timestamp)
+        return render_template("prescriptions_dashboard.html",
+                               rx_timestamp=rx_timestamp,
+                               user=user,
+                               meds=all_meds)
     else:
         flash("User is not logged in.")
         return redirect("/login")
