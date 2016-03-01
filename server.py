@@ -155,13 +155,11 @@ def submittal():
         water_boolean = bool(request.form.get("water"))
         daily_schedule = request.form.getlist("daily_schedule")
 
-
         print water_boolean
         print food
         print start_date
         print daily_schedule
         print "LOOK AT ME HERE!!!!!!!!!!! ABOVE IS DAILY SCHEDULE TIME!!!!!!!!!!"
-
 
         new_prescription = Prescription(user_id=logged_in_user_id,
                                         reason=reason,
@@ -303,18 +301,57 @@ def reminder(user_id):
             # put logged in message in nav bar - make visual - in jinja
             # if "user_id" in session
 
-# @app.route('/pass', methods=["PASS"])
-# def something():
-#     """Something"""
 
-#     return render_template("pass")
+@app.route('/doctor_registration', methods=["GET"])
+def register_doctor_information():
+    """Sends user to fill out doctor information"""
+    #Get form variables
+    logged_in_user_id = session.get("user_id")
+    logged_in_user_email = session.get("email")
+
+    if logged_in_user_id:
+        flash("You are currently logged in as %s " % logged_in_user_email)
+    else:
+        flash("You are not logged in as anyone")
+        return redirect("/login")
+
+    return render_template("doctor_registration.html")
 
 
-# @app.route('/pass', methods=["PASS"])
-# def something():
-#     """Something"""
+@app.route('/process_doctor_registration', methods=["POST"])
+def proces_doctor_information():
+    """Process user's inputted doctor appointment information from doctor_registration.html"""
+    logged_in_user_id = session.get("user_id")
+    # logged_in_user_email = session.get("email")
 
-#     return render_template("pass")
+    if logged_in_user_id:
+        doctor_name = request.form.get("doctor_name")
+        condition = request.form.get("condition")
+        phone = request.form.get("phone")
+        office_address = request.form.get("office_address")
+
+        print doctor_name + "<== doctor name"
+        print condition + "<=== condition name"
+        print phone + "<=== phone number of Doctor object"
+        print office_address + "<=== office_address"
+
+        new_doctor = Doctor(doctor_name=doctor_name,
+                            condition=condition,
+                            phone=phone,
+                            office_address=office_address)
+        db.session.add(new_doctor)
+        db.session.commit()
+
+        # SQL ALCHEMY QUERIES:
+        new_doctors = Doctor.query.filter_by(doctor_name=doctor_name).all()
+        print "This beow is the new_doctor_object:"
+        print new_doctors
+    else:
+        flash("You are not logged in as anyone")
+        return redirect("/login")
+
+    return render_template("doctors_dashboard.html",
+                           new_doctors=new_doctors)
 
 
 if __name__ == "__main__":

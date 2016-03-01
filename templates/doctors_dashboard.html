@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>
+    Hello and welcome
+</h1>
+
+<br>
+
+<h2>This is your doctor's appointments dashboard:</h2>
+All Objects: {{ new_doctors }}
+
+{%for doc in new_doctors%}
+    <ul>
+        <li> Doctor's name: {{ doc.doctor_name}} </li>
+        <li> Condition for which you see this particular doctor for: {{ doc.condition }} </li>
+        <li>Doctor's office phone number: {{ doc.phone }} </li>
+        <li>Doctor's office address: {{ doc.office_address }} </li>
+    </ul>
+{% endfor %}
+<br>
+
+
+{% endblock %}

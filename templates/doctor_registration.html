@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Register Information about your upcoming Doctor's Appointment</h1>
+<br>
+<form action="/process_doctor_registration" method="POST">
+
+    <br>
+    <label for="doctor_name"> Doctor's name:</label>
+    <br>
+    <input type="text" id="doctor_name" name="doctor_name" placeholder="Insert doctor's name here">
+    <br>
+    <label for="condition"> Condition you see this doctor for: </label>
+    <br>
+    <input type="text" id="condition" name="condition" placeholder="Insert condition here">
+    <br>
+    <label for="phone"> Doctor's office phone number:</label>
+    <input type="text" id="phone" name="phone" placeholder="Insert phone number here">
+    <br>
+    <label for="office_address"> Doctor's office address:</label>
+    <input type="text" id="office_address" name="office_address" placeholder="Insert doctors office address here">
+
+
+
+<br>
+<input type="submit" value="Press here to submit!">
+<br>
+{% endblock %}
