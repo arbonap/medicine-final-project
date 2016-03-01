@@ -223,12 +223,51 @@ def show_meds():
 
         # datetime.strptime(input_datetime, "%b-%d-%Y-%I-%M")
         rx_timestamp = Schedule.query.filter_by(user_id=logged_in_user_id).all()
+
         print rx_timestamp
+        # this dictionary is necessary in order for jinja to later loop over (because jinja can only do simple for loops)
+        pres_names = {}
+        for pres in all_meds:
+            pres_names[pres.prescription_id] = [pres.med_name]
+        print pres_names
+        print "!!!!ABOVE IS PRES_NAMES!!!"
+        # print pres_names should output something like:
+        # {1: [u'example']}
+
+        # this dictionary is necessary in order for jinja to later loop over (because jinja can only do simple for loops)
+        # pres_times = {}
+        # for time in rx_timestamp:
+        #     if time.prescription_id in pres_times:
+        #         pres_times[time.prescription_id].append(time.timestamp.strftime("%H:%M:%S"))
+        #     else:
+        #         pres_times[time.prescription_id] = [time.timestamp.strftime("%H:%M:%S")]
+
+        # print pres_times
+        # print "ABOVE IS PRES_TIMES!!!!!!!!!!!!!"
+
+        # create a dictionary with the med obj as the key and the schedule list as values
+        med_dict = dict()
+
+        for m in all_meds:
+            # if med_dict.get(m):
+            #     pass
+            # else:
+            #     med_dict[m] = m.schedule
+            med_dict.setdefault(m, m.schedule)
+
+        # pres_info = {}
+        # for pres in all_meds:
+        #     pres_info[pres.pres_id] = [pres.med_name, pres.timestamp]
+        # print "HELLO! ABOVE IS PRES_INFO!!!!!"
+
         # should gives back a query for all timestamps from logged in user
         return render_template("prescriptions_dashboard.html",
                                rx_timestamp=rx_timestamp,
                                user=user,
-                               meds=all_meds)
+                               meds=all_meds,
+                               pres_names=pres_names,
+                               # pres_times=pres_times,
+                               med_dict=med_dict)
     else:
         flash("User is not logged in.")
         return redirect("/login")

@@ -68,9 +68,9 @@ class Prescription(db.Model):
                              order_by=prescription_id)
 
     #Define a relationship to schedules
-    # schedule = db.relationship("Schedule",
-    #                            backref=db.backref("prescriptions"),
-    #                            order_by=prescription_id)
+    schedule = db.relationship("Schedule",
+                               backref=db.backref("prescriptions"))
+                               # order_by=prescription_id)
 
     def __repr__(self):
         """Provides helpful representation data when printed for debugging purposes."""

@@ -17,11 +17,11 @@ This is your user profile object: <br>
 {{ user }}
 <br>
 <i>Prescription information: </i>
-<ol>
+
 
 {% for med in meds %}
     <br>
-    <li>Medication name: {{ med.med_name }}</li>
+    <ol>Medication name: {{ med.med_name }}</ol>
         <ul>
             <li>Side effects: {{ med.side_effects }}</li>
             <li>Reason for taking medication: {{ med.reason }}</li>
@@ -36,23 +36,28 @@ This is your user profile object: <br>
     <br>
 
         </ul>
-</ol>
+
 {% endfor %}
 <br>
 Dosage time object:
 {{ rx_timestamp }}
 <br>
 <br>
-{% for med in meds %}
 <br>
-<ol><li>Upcoming medication times for: {{ med.med_name}}</li></ol>
-{% endfor %}
-    {% for timestamp in rx_timestamp%}
+    <br>
     <ul>
-
-    <li>{{ timestamp.timestamp }}</li>
-</ul>
-{% endfor %}
+    <!-- the following loops over dictionary created in server.py: -->
+    {% for m in meds %}
+    <li>{{ m.med_name }}
+        <ul>
+        {% for time in m.schedule %}
+            <li>{{ time.timestamp }}</li>
+        {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+    </ul>
+    <br>
 <br>
 
 <i>Refill information:</i>
