@@ -345,17 +345,20 @@ def proces_doctor_information():
         condition = request.form.get("condition")
         phone = request.form.get("phone")
         office_address = request.form.get("office_address")
+        appointment_date = request.form.get("appointment_date")
 
         print doctor_name + "<== doctor name"
         print condition + "<=== condition name"
         print phone + "<=== phone number of Doctor object"
         print office_address + "<=== office_address"
+        print appointment_date + "<===appointment_date"
 
         new_doctor = Doctor(doctor_name=doctor_name,
                             condition=condition,
                             phone=phone,
                             office_address=office_address,
-                            user_id=logged_in_user_id)
+                            user_id=logged_in_user_id,
+                            appointment_date=appointment_date)
         db.session.add(new_doctor)
         db.session.commit()
 

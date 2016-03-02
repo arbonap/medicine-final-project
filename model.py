@@ -106,17 +106,20 @@ class Doctor(db.Model):
     phone = db.Column(db.String(20), nullable=True)
     #should I make this phone number a string? or Integer?
     office_address = db.Column(db.String(300), nullable=True)
+    appointment_date = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
         """Provides helpful representation data when printed for debugging purposes."""
         return "<doctor_id doctor_id=%s user_id user_id=%s doctor_name doctor_name=%s \
                 condition condition=%s phone phone=%s \
-                office_address=%s>" % (self.doctor_id,
-                                       self.user_id,
-                                       self.doctor_name,
-                                       self.condition,
-                                       self.phone,
-                                       self.office_address)
+                office_address office_address=%s \
+                appointment_date appointment_date=%s>" % (self.doctor_id,
+                                                          self.user_id,
+                                                          self.doctor_name,
+                                                          self.condition,
+                                                          self.phone,
+                                                          self.office_address,
+                                                          self.appointment_date)
 
 
 # class Dosage_time(db.Model):
