@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>
-    Hello and welcome
+    Hello and welcome {{ user.first_name }}!
 </h1>
 
+<h2>
+    You are currently logged in as {{ user.email }}!
+</h2>
 <br>
 
-<h2>This is your doctor's appointments dashboard:</h2>
-All Objects: {{ new_doctors }}
+<h3>This is your doctor's appointments dashboard:</h3>
+All Objects: {{ all_doctors }}
 
-{%for doc in new_doctors%}
+{%for doc in all_doctors%}
     <ul>
         <li> Doctor's name: {{ doc.doctor_name}} </li>
         <li> Condition for which you see this particular doctor for: {{ doc.condition }} </li>

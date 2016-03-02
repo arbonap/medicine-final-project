@@ -8,6 +8,21 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
+# app.config.update(
+#     DEBUG=True,
+#     #EMAIL SETTINGS
+#     MAIL_SERVER='smtp.gmail.com',
+#     MAIL_PORT=465,
+#     MAIL_USE_SSL=True,
+#     MAIL_USERNAME=os.environ['GMAIL_USER_NAME'],
+#     MAIL_PASSWORD=os.environ['GMAIL_PASSWORD']
+#     )
+
+# mail = Mail(app)
+
+# app.secret_key = os.environ['FLASK_KEY']
+# app.jinja_env.undefined = StrictUndefined
+
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
 #???
@@ -302,7 +317,7 @@ def reminder(user_id):
             # if "user_id" in session
 
 
-@app.route('/doctor_registration', methods=["GET"])
+@app.route('/doctor_registration')
 def register_doctor_information():
     """Sends user to fill out doctor information"""
     #Get form variables
@@ -322,9 +337,10 @@ def register_doctor_information():
 def proces_doctor_information():
     """Process user's inputted doctor appointment information from doctor_registration.html"""
     logged_in_user_id = session.get("user_id")
-    # logged_in_user_email = session.get("email")
+    logged_in_user_email = session.get("email")
 
     if logged_in_user_id:
+        flash("You are currently logged in as %s " % logged_in_user_email)
         doctor_name = request.form.get("doctor_name")
         condition = request.form.get("condition")
         phone = request.form.get("phone")
@@ -338,20 +354,36 @@ def proces_doctor_information():
         new_doctor = Doctor(doctor_name=doctor_name,
                             condition=condition,
                             phone=phone,
-                            office_address=office_address)
+                            office_address=office_address,
+                            user_id=logged_in_user_id)
         db.session.add(new_doctor)
         db.session.commit()
 
         # SQL ALCHEMY QUERIES:
+        user = User.query.filter_by(user_id=logged_in_user_id).first()
+
         new_doctors = Doctor.query.filter_by(doctor_name=doctor_name).all()
-        print "This beow is the new_doctor_object:"
+        print "This below is the doctor_object:"
         print new_doctors
+        print "This below is the user object:"
+        print user
+
     else:
         flash("You are not logged in as anyone")
         return redirect("/login")
+    return redirect("/your_doctors")
+
+
+@app.route("/your_doctors")
+def display_doctors():
+
+    user = User.query.filter_by(user_id=session['user_id']).first()
+    # instead of constaltly using logged_in_user_id, i can just directly get 'user_id' from the session
+    all_doctors = Doctor.query.filter_by(user_id=user.user_id).all()
 
     return render_template("doctors_dashboard.html",
-                           new_doctors=new_doctors)
+                           all_doctors=all_doctors,
+                           user=user)
 
 
 if __name__ == "__main__":

@@ -99,6 +99,7 @@ class Doctor(db.Model):
     __tablename__ = "doctors"
 
     doctor_id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
     doctor_name = db.Column(db.String(100), nullable=False)
     condition = db.Column(db.String(300), nullable=True)
     #for what specific condition does the user see the doctor for?
@@ -108,9 +109,10 @@ class Doctor(db.Model):
 
     def __repr__(self):
         """Provides helpful representation data when printed for debugging purposes."""
-        return "<doctor_id doctor_id=%s doctor_name doctor_name=%s \
+        return "<doctor_id doctor_id=%s user_id user_id=%s doctor_name doctor_name=%s \
                 condition condition=%s phone phone=%s \
                 office_address=%s>" % (self.doctor_id,
+                                       self.user_id,
                                        self.doctor_name,
                                        self.condition,
                                        self.phone,
