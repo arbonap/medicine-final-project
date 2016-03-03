@@ -397,6 +397,8 @@ def send_email():
     # instead of constaltly using logged_in_user_id, i can just directly get 'user_id' from the session
     all_meds = Prescription.query.filter_by(user_id=user.user_id).all()
 
+    body = "Hello,"
+
     for med in all_meds:
         med_name = med.med_name
         print med_name
@@ -405,11 +407,9 @@ def send_email():
         print reason
         print "!!!!! ABOVE IS REASON FOR TAKING MED"
 
-
-    body = "Medication {med_name} should be taken for {reason}".format(med_name=med_name, reason=reason)
+        body = body + "<br/><br/>You should take {med_name} because of {reason}".format(med_name=med_name, reason=reason)
 
     email = request.form.get('email')
-    body = "<h2> You should take {name} for {reason} </h2> "
     print body
     print "ABOVE IS BODY!!!!!!!******"
     msg = Message(
