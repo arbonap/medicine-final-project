@@ -78,6 +78,8 @@ def sign_up_process():
     db.session.add(new_user)
     db.session.commit()
 
+    set_login_session(new_user)
+
     flash("User %s added." % email)
 
     return redirect('/')
@@ -110,10 +112,7 @@ def login_user():
         flash("Incorrect password, try again.")
         return redirect("/login")
 
-    session["user_id"] = user.user_id
-    session['email'] = user.email
-    session['first_name'] = user.first_name
-    # # is this correct? not sure
+    set_login_session(user)
 
     flash("Logged in as %s" % email)
     return redirect("/")
@@ -157,37 +156,14 @@ def submittal():
     if logged_in_user_id:
         reason = request.form.get("reason")
         med_name = request.form.get("med_name")
-        side_effects = request.form.get("side_effects")
-        starting_amount = int(request.form.get("starting_amount"))
-        #starting amount is an integer
-        refills_remaining = int(request.form.get("refills_remaining"))
-        #refills remaining is an integer
-        black_box_warning = request.form.get("black_box_warning")
-        start_date = request.form.get("start_date")
-        end_date = request.form.get("end_date")
-        dosage_timing = int(request.form.get("dosage_timing"))
         dosage_quantity = int(request.form.get("dosage_quantity"))
-        #dosage is a string so no need for an integer
         food = bool(request.form.get("food"))
         water_boolean = bool(request.form.get("water"))
         daily_schedule = request.form.getlist("daily_schedule")
 
-        print water_boolean
-        print food
-        print start_date
-        print daily_schedule
-        print "LOOK AT ME HERE!!!!!!!!!!! ABOVE IS DAILY SCHEDULE TIME!!!!!!!!!!"
-
         new_prescription = Prescription(user_id=logged_in_user_id,
                                         reason=reason,
                                         med_name=med_name,
-                                        side_effects=side_effects,
-                                        starting_amount=starting_amount,
-                                        refills_remaining=refills_remaining,
-                                        black_box_warning=black_box_warning,
-                                        start_date=start_date,
-                                        end_date=end_date,
-                                        dosage_timing=dosage_timing,
                                         dosage_quantity=dosage_quantity,
                                         food=food,
                                         drink=water_boolean,
@@ -195,29 +171,18 @@ def submittal():
         db.session.add(new_prescription)
         db.session.commit()
 
-        new_prescription_id = Prescription.query.filter_by(user_id=logged_in_user_id,
-                                                           med_name=med_name,
-                                                           start_date=start_date).first()
-
-        print new_prescription_id
-
         for time_string in daily_schedule:
-            print time_string
         #   1.first convert time string into datetime object that's just the time in HOUR:MINUTE:SECONDS format
             timestamp = datetime.strptime(time_string, "%H:%M:%S")
-            print timestamp
         #   2. make dosage time object:
-        #  ???????????????????????? uh
             new_dosage_time = Schedule(user_id=logged_in_user_id,
                                        timestamp=timestamp,
-                                       prescription_id=new_prescription_id.user_id)
-            print new_dosage_time
-        #   3. do db.add -  #
+                                       prescription_id=new_prescription.user_id)
+        #   3. do db.add
             db.session.add(new_dosage_time)
             db.session.commit()
 
         flash("Medication %s added." % med_name)
-        flash("You are logged in as %s" % logged_in_user_email)
         return redirect("/")
     else:
         flash("User is not logged in.")
@@ -301,16 +266,17 @@ def reminder(user_id):
     print prescription_list
 
     for prescription in prescription_list:
-        time_of_first_dose = prescription.start_date.time()
-        if current_dt <= time_of_first_dose and time_of_first_dose <= hour_from_now:
-            # make conditional an hour from now and within current hour
-            message = "Reminder: {num_doses} doses {med_name} ".format(
-                num_doses=prescription.dosage_quantity,
-                med_name=prescription.med_name)
-            flash(message)
-            return message
-            print message
-            print "!!!!!" * 20
+        schedule_list = Schedule.query.filter_by(prescription_id=prescription.prescription_id).all()
+        for schedule in schedule_list:
+            if current_dt <= schedule.timestamp and schedule.timestamp <= hour_from_now:
+                # make conditional an hour from now and within current hour
+                message = "Reminder: {num_doses} doses {med_name} ".format(
+                    num_doses=prescription.dosage_quantity,
+                    med_name=prescription.med_name)
+                flash(message)
+                return message
+                print message
+                print "!!!!!" * 20
 
             # make nav bar in html
             # make sure i'm still being logged in
@@ -424,6 +390,13 @@ def send_email():
     flash('Upcoming prescription list has been emailed!')
 
     return redirect('/')
+
+
+def set_login_session(user):
+    session["user_id"] = user.user_id
+    session['email'] = user.email
+    session['first_name'] = user.first_name
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

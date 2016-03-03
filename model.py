@@ -39,15 +39,7 @@ class Prescription(db.Model):
                                 nullable=False)
     reason = db.Column(db.String(150), nullable=True)
     med_name = db.Column(db.String(200), nullable=False)
-    side_effects = db.Column(db.String(200), nullable=True)
-    starting_amount = db.Column(db.Integer, nullable=True)
-    #  starting amount of medicine
-    refills_remaining = db.Column(db.Integer, nullable=True)
-    black_box_warning = db.Column(db.String(300), nullable=True)
     dosage_quantity = db.Column(db.Integer, nullable=False)
-    dosage_timing = db.Column(db.Integer, nullable=False)
-    start_date = db.Column(db.DateTime, nullable=False)
-    end_date = db.Column(db.DateTime, nullable=False)
     food = db.Column(db.Boolean, nullable=True)
     #food?
     drink = db.Column(db.Boolean, nullable=True)

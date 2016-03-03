@@ -20,58 +20,33 @@ This is your user profile object: <br>
 
 
 {% for med in meds %}
-    <br>
+    <br/>
     <ol>Medication name: {{ med.med_name }}</ol>
-        <ul>
-            <li>Side effects: {{ med.side_effects }}</li>
-            <li>Reason for taking medication: {{ med.reason }}</li>
-            <li>Black box warnings: {{ med.black_box_warning }}</li>
-            <li>Is this taken with food? {{ med.food }} </li>
-            <li>Is this taken with drink? {{ med.drink }} </li>
-            <li> How many times a day do you take your meds? {{ med.dosage_timing }} </li>
-            <li> Each time you take this medicine, how many units of this medicine do you take? {{ med.dosage_quantity }} </li>
-            <li>You took your first dose of {{ med.med_name }} ever at {{ med.start_date }}</li>
-            <li>Your last dose of {{ med.med_name }} should be
-                taken at {{ med.end_date }}</li>
-    <br>
-
-        </ul>
-
-{% endfor %}
-<br>
-Dosage time object:
-{{ rx_timestamp }}
-<br>
-<br>
-<br>
-    <br>
     <ul>
+        <li>Reason for taking medication: {{ med.reason }}</li>
+        <li>Is this taken with food? {{ med.food }} </li>
+        <li>Is this taken with drink? {{ med.drink }} </li>
+        <li> Each time you take this medicine, how many units of this medicine do you take? {{ med.dosage_quantity }} </li>
+        <br/>
+    </ul>
+{% endfor %}
+
+
+<ul>
     <!-- the following loops over dictionary created in server.py: -->
     {% for m in meds %}
-    <li>{{ m.med_name }}
-        <ul>
-        {% for time in m.schedule %}
-            <li>{{ time.timestamp }}</li>
-        {% endfor %}
-        </ul>
-    </li>
+        <li>{{ m.med_name }}
+            <ul>
+                {% for time in m.schedule %}
+                    <li>{{ time.timestamp }}</li>
+                {% endfor %}
+            </ul>
+        </li>
     {% endfor %}
-    </ul>
-    <br>
+</ul>
+<br>
 <br>
 
-<i>Refill information:</i>
-<ol>
-    {% for refill in meds %}
-
-        <li>Medication name: {{ refill.med_name }} </li>
-            <ul>
-                <li>Refills remaining: {{ refill.refills_remaining }} </li>
-            </ul>
-</ol>
-
-</div>
-{% endfor %}
 <button id="email-button" type="button">Email me upcoming prescription information</button>
 
 
