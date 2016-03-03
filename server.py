@@ -116,16 +116,12 @@ def login_user():
 
     flash("Logged in as %s" % email)
     return redirect("/")
-    # where to direct this page?
 
 
 @app.route('/logout', methods=['GET'])
 def logout():
     """Log out."""
 
-    # del session["user_id"]
-    # del session["email"]
-    # del session["first_name"]
     session.clear()
     flash("User Logged out...Goodbye!")
     return redirect("/")
@@ -256,7 +252,6 @@ def show_meds():
 def reminder(user_id):
     # user_id is the parameter
     """Reminds user of when to take their meds."""
-    print "IM IN MY REMINDER!!!!!"
     current_dt = datetime.now()
     hour_from_now = current_dt + timedelta(hours=1)
     hour_from_now = hour_from_now.time()
@@ -270,13 +265,13 @@ def reminder(user_id):
         for schedule in schedule_list:
             if current_dt <= schedule.timestamp and schedule.timestamp <= hour_from_now:
                 # make conditional an hour from now and within current hour
-                message = "Reminder: {num_doses} doses {med_name} ".format(
+                message = "Attention {first_name}: Please take {num_doses} pill(s) of {med_name}. \n ".format(
                     num_doses=prescription.dosage_quantity,
-                    med_name=prescription.med_name)
+                    med_name=prescription.med_name,
+                    first_name=prescription.user.first_name)
                 flash(message)
                 return message
-                print message
-                print "!!!!!" * 20
+
 
             # make nav bar in html
             # make sure i'm still being logged in

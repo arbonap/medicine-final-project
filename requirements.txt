@@ -7,6 +7,7 @@ DateTime==4.0.1
 Delorean==0.6.0
 Flask==0.10.1
 Flask-DebugToolbar==0.10.0
+Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.1
 greenlet==0.4.9
 humanize==0.5.1

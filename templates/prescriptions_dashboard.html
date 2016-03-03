@@ -47,7 +47,7 @@ This is your user profile object: <br>
 <br>
 <br>
 
-<button id="email-button" type="button">Email me upcoming prescription information</button>
+<h4>Email me upcoming prescription information</h4>
 
 
     <form action="/send-email" method="POST">
@@ -55,23 +55,9 @@ This is your user profile object: <br>
                   <input id="hidden-form" type="hidden" name="html" value="">
                   <input type="submit" value="send">
               </form>
-<script>
-    "use strict";
-// JQuery that submits a hidden form
-// that copies and pastes all of the HTML
-// on the prescription dashboard page
-// so that flask can email user their information
 
-var emailButton = $("#email-button");
+<br/>
+<br/>
 
-function updateForm() {
-   $('#hidden-form')[0].value = $('#prescription-html')[0]
-   console.log($('#hidden-form')[0].value[0]);
-
-}
-
-// Event Listener
-emailButton.click(updateForm);
-</script>
 {% endblock %}
 
