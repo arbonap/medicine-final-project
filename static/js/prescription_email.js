@@ -7,7 +7,8 @@
 var emailButton = $("#email-button");
 
 function updateForm() {
-    $('#prescription-html')[0].value = $('#prescription-html')[0].innerHTML;
+   $('#hidden-form')[0].value = $('#prescription-html')[0]
+   console.log($('#hidden-form')[0].value[0]);
 
 }
 
