@@ -1,27 +1,29 @@
+import os
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db, db, User, Prescription, Schedule, Doctor
 from datetime import datetime, timedelta
+from flask_mail import Mail, Message
 # from datetime the module, you're importing datetime the class (both are called datetime)
 # static methods are called directly from the class
 
 app = Flask(__name__)
 
-# app.config.update(
-#     DEBUG=True,
-#     #EMAIL SETTINGS
-#     MAIL_SERVER='smtp.gmail.com',
-#     MAIL_PORT=465,
-#     MAIL_USE_SSL=True,
-#     MAIL_USERNAME=os.environ['GMAIL_USER_NAME'],
-#     MAIL_PASSWORD=os.environ['GMAIL_PASSWORD']
-#     )
+app.config.update(
+    DEBUG=True,
+    #EMAIL SETTINGS
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USE_TLS=False,
+    # MAIL_USERNAME='checkengine2016',
+    # MAIL_PASSWORD='checkengine1999'
+    MAIL_USERNAME=os.environ['GMAIL_USER_NAME'],
+    MAIL_PASSWORD=os.environ['GMAIL_PASSWORD']
+    )
 
-# mail = Mail(app)
-
-# app.secret_key = os.environ['FLASK_KEY']
-# app.jinja_env.undefined = StrictUndefined
+mail = Mail(app)
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
@@ -388,6 +390,25 @@ def display_doctors():
                            all_doctors=all_doctors,
                            user=user)
 
+
+@app.route('/send-email', methods=['POST'])
+def send_email():
+
+    email = request.form.get('email')
+    body = request.form.get('html')
+
+    msg = Message(
+          'Prescription Times From MedMinder',
+          sender='remindermedicine@gmail.com',
+          recipients=[email])
+    msg.html = body
+    # mail.send('email')
+    # msg.body = "This is the email body"
+    mail.send(msg)
+    # mail.send(msg)
+    flash('Upcoming prescription list has been emailed!')
+
+    return redirect('/')
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

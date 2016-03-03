@@ -8,7 +8,7 @@
 <h4>
     <a href="/logout">Click here to sign out </a>
 </h4>
-
+<div id="prescription-html">
 <h3>This is your prescription dashboard:</h3>
 <br>
 {{ meds }}
@@ -69,11 +69,16 @@ Dosage time object:
                 <li>Refills remaining: {{ refill.refills_remaining }} </li>
             </ul>
 
-
-
+</div>
+<button id="email-button" type="button">Email me upcoming prescription information</button>
 
     {% endfor %}
 </ol>
-
+    <form action="/send-email" method="POST">
+                  <label>Email: <input type="text" name="email"></label>
+                  <input id="prescription-html" type="hidden" name="html" value="">
+                  <input type="submit" value="send">
+              </form>
+    <script src="/static/js/prescription_email.js"></script>
 {% endblock %}
 
