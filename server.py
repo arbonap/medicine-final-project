@@ -367,8 +367,8 @@ def send_email():
         med_name = med.med_name
         reason = med.reason
         for time in med.schedule:
-            rx_timestamp.append(time.timestamp)
-            print rx_timestamp
+            the_time = time.timestamp.strftime("%I: %M %p")
+            rx_timestamp.append(the_time)
 
         body = body + "<br/><br/>You should take {med_name} because of {reason} at {rx_timestamp}".format(med_name=med_name, reason=reason, rx_timestamp=rx_timestamp)
 
