@@ -359,19 +359,18 @@ def send_email():
     # instead of constaltly using logged_in_user_id, i can just directly get 'user_id' from the session
     all_meds = Prescription.query.filter_by(user_id=users.user_id).all()
 
-    # {% for m in meds %}
-    #     <li>{{ m.med_name }}
-    #         <ul>
-    #             {% for time in m.schedule %}
-                    # <li>{{ time.timestamp }}</li>
-
     body = "Hello {logged_in_user_name}, ".format(logged_in_user_name=logged_in_user_name)
+
+    rx_timestamp = []
 
     for med in all_meds:
         med_name = med.med_name
         reason = med.reason
+        for time in med.schedule:
+            rx_timestamp.append(time.timestamp)
+            print rx_timestamp
 
-        body = body + "<br/><br/>You should take {med_name} because of {reason}".format(med_name=med_name, reason=reason)
+        body = body + "<br/><br/>You should take {med_name} because of {reason} at {rx_timestamp}".format(med_name=med_name, reason=reason, rx_timestamp=rx_timestamp)
 
     email = request.form.get('email')
 
