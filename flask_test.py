@@ -4,6 +4,7 @@ import unittest
 import tempfile
 from model import connect_to_db, db
 
+
 class FlaskrTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -12,10 +13,9 @@ class FlaskrTestCase(unittest.TestCase):
         connect_to_db(app, "sqlite:///")
         db.create_all()
 
-
-    # def tearDown(self):
-    #     os.close(self.db_fd)
-    #     os.unlink(app.config['medicines'])
+    def tearDown(self):
+        os.close(self.db_fd)
+        os.unlink(app.config['medicines'])
 
     def test_empty_db(self):
         rv = self.app.get('/')
