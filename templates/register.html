@@ -2,122 +2,120 @@
 {% block content %}
 <marquee>
     <h1>Register - Tell me a little about yourself!</h1>
-    <br>
 </marquee>
 <form action ="/medication" method="POST">
+    <div class="form-group">
+        <label for="reason">Condition associated with this medicine:</label>
+        <input class='form-control' type="text" id="reason" name = "reason" placeholder="Insert condition here">
+    </div>
+    <div class="form-group">
+        <label for="med_name">Name of medication:</label>
 
-    <br>
-    <label for="reason">Condition associated with this medicine:</label>
-    <br>
-    <input type="text" id="reason" name = "reason" placeholder="Insert condition here">
-    <br>
-    <label for="med_name">Name of medication:</label>
-    <br>
-    <input type="text" id="med_name" name = "med_name" placeholder="Insert name of medication here">
-    <br>
-    <label for="dosage_quantity"> Dosage: </label>
-    <br>
-    <input type="number" min="1" max="10" id="dosage_quantity" name = "dosage_quantity" placeholder="Insert dosage here">
-    <br>
-    <label for="food">Is this medication taken with food?
-        <br>
-        Check the corresponding checkbox for 'True' or 'False'.
-        <br>
-    </label>
-    <br>
-    <input type="checkbox" id="food" name = "food" value="T"> True
-    <input type="checkbox" id="food" name = "food" value="F"> False
-    <br>
-    <label for="water">
+        <input class='form-control' type="text" id="med_name" name = "med_name" placeholder="Insert name of medication here">
+    </div>
+    <div class="form-group">
+        <label for="dosage_quantity"> Dosage: </label>
+        <input class='form-control' type="number" min="1" max="10" id="dosage_quantity" name = "dosage_quantity" placeholder="Insert dosage here">
+    </div>
+    <div class="form-group">
+        <label for="food">Is this medication taken with food?
+
+         Check the corresponding checkbox for 'True' or 'False'.
+
+        </label>
+        <input type="checkbox" id="food" name = "food" value="T"> True
+        <input type="checkbox" id="food" name = "food" value="F"> False
+    </div>
+    <div class="form-group">
+        <label for="water">
         Is this medication taken with water?
-        <br>
-        Check the corresponding checkbox for 'True' or 'False'.
-        <br>
-    </label>
-    <br>
-    <input type="checkbox" id="water" name = "water" value= "T"> True
-    <input type="checkbox" id="water" name = "water" value= "F"> False
-    <br>
-    <label for ="daily_schedule">
-        <br>
-        What times in a day do you take this medication?
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="00:00:00"> Midnight
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="00:30:00"> 12:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="01:00:00"> 01:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="01:30:00"> 01:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="02:00:00"> 02:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="02:30:00"> 02:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="03:00:00"> 03:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="03:30:00"> 03:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="04:00:00"> 04:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="04:30:00"> 04:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="05:00:00"> 05:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="05:30:00"> 05:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="06:00:00"> 06:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="06:30:00"> 06:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="07:00:00"> 07:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="07:30:00"> 07:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="08:00:00"> 08:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="08:30:00"> 08:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="09:00:00"> 09:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="09:30:00"> 09:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="10:00:00"> 10:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="10:30:00"> 10:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="11:00:00"> 11:00 AM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="11:30:00"> 11:30 AM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="12:00:00"> Noontime
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="12:30:00"> 12:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="13:00:00"> 01:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="13:30:00"> 01:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="14:00:00"> 02:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="14:30:00"> 02:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="15:00:00"> 03:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="15:30:00"> 03:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="16:00:00"> 04:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="16:30:00"> 04:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="17:00:00"> 05:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="17:30:00"> 05:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="18:00:00"> 06:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="18:30:00"> 06:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="19:00:00"> 07:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="19:30:00"> 07:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="20:00:00"> 08:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="20:30:00"> 08:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="21:00:00"> 09:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="21:30:00"> 09:30 PM
-        <br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="22:00:00"> 10:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="22:30:00"> 10:30 PM
-        <Br>
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="23:00:00"> 11:00 PM
-        <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="23:30:00"> 11:30 PM
-        <br>
 
-    </label>
-    <br>
-    <input type="submit" value="Press here to submit!" >
-    <br>
+        Check the corresponding checkbox for 'True' or 'False'.
+
+        </label>
+        <input type="checkbox" id="water" name = "water" value= "T"> True
+        <input type="checkbox" id="water" name = "water" value= "F"> False
+    </div>
+    <div class="form-group">
+        <label for ="daily_schedule">
+
+         What times in a day do you take this medication?
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="00:00:00"> Midnight
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="00:30:00"> 12:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="01:00:00"> 01:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="01:30:00"> 01:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="02:00:00"> 02:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="02:30:00"> 02:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="03:00:00"> 03:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="03:30:00"> 03:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="04:00:00"> 04:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="04:30:00"> 04:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="05:00:00"> 05:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="05:30:00"> 05:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="06:00:00"> 06:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="06:30:00"> 06:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="07:00:00"> 07:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="07:30:00"> 07:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="08:00:00"> 08:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="08:30:00"> 08:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="09:00:00"> 09:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="09:30:00"> 09:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="10:00:00"> 10:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="10:30:00"> 10:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="11:00:00"> 11:00 AM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="11:30:00"> 11:30 AM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="12:00:00"> Noontime
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="12:30:00"> 12:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="13:00:00"> 01:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="13:30:00"> 01:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="14:00:00"> 02:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="14:30:00"> 02:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="15:00:00"> 03:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="15:30:00"> 03:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="16:00:00"> 04:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="16:30:00"> 04:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="17:00:00"> 05:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="17:30:00"> 05:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="18:00:00"> 06:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="18:30:00"> 06:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="19:00:00"> 07:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="19:30:00"> 07:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="20:00:00"> 08:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="20:30:00"> 08:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="21:00:00"> 09:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="21:30:00"> 09:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="22:00:00"> 10:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="22:30:00"> 10:30 PM
+
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="23:00:00"> 11:00 PM
+            <input type="checkbox" id = "daily_schedule" name = "daily_schedule" value="23:30:00"> 11:30 PM
+
+
+        </label>
+    </div>
+    <input type="submit" class="btn btn-default" value="Press here to submit!" >
 </form>
 {% endblock %}

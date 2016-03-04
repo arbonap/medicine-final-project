@@ -144,6 +144,7 @@ def register():
 @app.route('/medication', methods=['POST'])
 def submittal():
     """Getting variables from medication registeration form"""
+
     logged_in_user_id = session.get("user_id")
     print logged_in_user_id
     logged_in_user_email = session.get("email")
@@ -167,13 +168,17 @@ def submittal():
         db.session.add(new_prescription)
         db.session.commit()
 
+        this_prescription = Prescription.query.filter_by(med_name=med_name, user_id=logged_in_user_id).first()
+        print  "THIS PRESCRIPTION: ", this_prescription
+
+
         for time_string in daily_schedule:
         #   1.first convert time string into datetime object that's just the time in HOUR:MINUTE:SECONDS format
             timestamp = datetime.strptime(time_string, "%H:%M:%S")
         #   2. make dosage time object:
             new_dosage_time = Schedule(user_id=logged_in_user_id,
                                        timestamp=timestamp,
-                                       prescription_id=new_prescription.user_id)
+                                       prescription_id=this_prescription.prescription_id)
         #   3. do db.add
             db.session.add(new_dosage_time)
             db.session.commit()
@@ -361,11 +366,12 @@ def send_email():
 
     body = "Hello {logged_in_user_name}, ".format(logged_in_user_name=logged_in_user_name)
 
-    rx_timestamp = []
-
     for med in all_meds:
         med_name = med.med_name
         reason = med.reason
+        print med.schedule
+        print "**********************"
+        rx_timestamp = []
         for time in med.schedule:
             the_time = time.timestamp.strftime("%I: %M %p")
             rx_timestamp.append(the_time)
@@ -401,7 +407,7 @@ if __name__ == "__main__":
     # Do not debug for demo
     app.debug = True
 
-    connect_to_db(app)
+    connect_to_db(app, 'postgresql:///medicines')
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)

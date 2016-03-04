@@ -138,11 +138,11 @@ class Doctor(db.Model):
 # Helper functions
 
 
-def connect_to_db(app):
+def connect_to_db(app, URL):
     """Connect the database to our Flask app."""
 
     # Configure to use our PostgreSQL database
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///medicines'
+    app.config['SQLALCHEMY_DATABASE_URI'] = URL
 #    app.config['SQLALCHEMY_ECHO'] = True
     db.app = app
     db.init_app(app)
@@ -153,5 +153,5 @@ if __name__ == "__main__":
     # you in a state of being able to work with the database directly.
 
     from server import app
-    connect_to_db(app)
+    connect_to_db(app, 'postgresql:///medicines')
     print "Connected to DB."
