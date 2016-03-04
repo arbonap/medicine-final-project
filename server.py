@@ -354,25 +354,27 @@ def display_doctors():
 
 @app.route('/send-email', methods=['POST'])
 def send_email():
-    user = User.query.filter_by(user_id=session['user_id']).first()
+    logged_in_user_name = session.get("first_name")
+    users = User.query.filter_by(user_id=session['user_id']).first()
     # instead of constaltly using logged_in_user_id, i can just directly get 'user_id' from the session
-    all_meds = Prescription.query.filter_by(user_id=user.user_id).all()
+    all_meds = Prescription.query.filter_by(user_id=users.user_id).all()
 
-    body = "Hello,"
+    # {% for m in meds %}
+    #     <li>{{ m.med_name }}
+    #         <ul>
+    #             {% for time in m.schedule %}
+                    # <li>{{ time.timestamp }}</li>
+
+    body = "Hello {logged_in_user_name}, ".format(logged_in_user_name=logged_in_user_name)
 
     for med in all_meds:
         med_name = med.med_name
-        print med_name
-        print "!!!!!!!!!!ABOVE IS MEDICINE NAME"
         reason = med.reason
-        print reason
-        print "!!!!! ABOVE IS REASON FOR TAKING MED"
 
         body = body + "<br/><br/>You should take {med_name} because of {reason}".format(med_name=med_name, reason=reason)
 
     email = request.form.get('email')
-    print body
-    print "ABOVE IS BODY!!!!!!!******"
+
     msg = Message(
           'Prescription Times From MedMinder',
           sender='remindermedicine@gmail.com',
