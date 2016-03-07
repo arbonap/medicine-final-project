@@ -21,5 +21,7 @@ class FlaskrTestCase(unittest.TestCase):
         rv = self.app.get('/')
         print rv.status_code
         assert rv.status_code == 200
+
+
 if __name__ == '__main__':
     unittest.main()

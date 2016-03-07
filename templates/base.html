@@ -4,15 +4,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- This tells the browser I want the width to be the
   viewport of the device -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
-<!-- JQuery library: -->
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <title>MedMinder!</title>
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <title>MedMinder</title>
 
 </head>
+
 <body>
+  <div class ="container">
+      <h1>
+        <i class="fa fa-medkit"></i>MedMinder
+      </h1>
+
+    <h3>
+      <i>
+        Empowering patients to take control of their health
+      <i class="fa fa-heartbeat"></i>
+
+      </i>
+    </h3>
+  </div>
+
+
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -21,18 +42,49 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Homepage <span class="sr-only">(current)</span></a></li>
-        <li><a href="/sign-up">New User? Sign Up!</a></li>
-        <li><a href="/login">Login Here</a></li>
+        <li class="active"><a href="/">
+          <i class="fa fa-home"></i>
+          Home <span class="sr-only">(current)</span></a></li>
+        <li>
+
+          <a href="/sign-up">
+            <i class="fa fa-user-plus">
+            </i>
+            Sign Up!
+          </a>
+
+        </li>
+        <li>
+          <a href="/login">
+            <i class="fa fa-sign-in">
+            </i>
+
+            Login Here
+          </a>
+        </li>
 
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/register">Register Medicines</a></li>
-        <li><a href="/show_meds">Current Medicines</a></li>
-        <li><a href="/doctor_registration">Register Doctor's Appointments</a></li>
-        <li><a href="/your_doctors">Upcoming Doctor's Appointments</a></li>
-        <li><a href="/logout">Log out!</a></li>
+      <ul class="nav navbar-nav navbar-center">
+        <li>
+          <a href="/register">
+            <i class="fa fa-plus-square">
+            </i>
+            Register Medicines
+          </a>
+        </li>
+        <li><a href="/show_meds">
+          <i class="fa fa-info-circle"></i>
+          Current Medicines</a></li>
+        <li><a href="/doctor_registration">
+
+          Register Appointments</a></li>
+        <li><a href="/your_doctors">
+          <i class="fa fa-user-md"></i>
+        Upcoming Appointments</a></li>
+        <li><a href="/logout">
+          <i class="fa fa-sign-out"></i>
+          Log out</a></li>
 
       </ul>
     </div>
@@ -41,13 +93,17 @@
 </nav>
 
 <div class="container">
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 {% for flash in get_flashed_messages() %}
   {{ flash }} <br>
 {% endfor %}
+  </div>
 
 {% block content %}
     Put your body here.
 {% endblock %}
+
 </div>
 
 

@@ -9,14 +9,14 @@
     <a href="/logout">Click here to sign out </a>
 </h4>
 <div id="prescription-html">
-<h3>This is your prescription dashboard:</h3>
+<h3>Your prescription dashboard:</h3>
+
 <br>
-{{ meds }}
-<br>
-This is your user profile object: <br>
-{{ user }}
-<br>
-<i>Prescription information: </i>
+<i>
+    <i class="fa fa-calendar">
+    </i>
+    Prescription information:
+</i>
 
 
 {% for med in meds %}
@@ -33,6 +33,7 @@ This is your user profile object: <br>
 
 
 <ul>
+    <i class="fa fa-calendar"></i>
     <!-- the following loops over dictionary created in server.py: -->
     {% for m in meds %}
         <li>{{ m.med_name }}
@@ -48,13 +49,17 @@ This is your user profile object: <br>
 <br>
 <br>
 
-<h4>Email me upcoming prescription information</h4>
+<h4>
+    <i class="fa fa-envelope">
+    </i>
+    Email me upcoming prescription reminder:
+</h4>
 
 
     <form action="/send-email" method="POST">
                   <label>Email: <input type="text" name="email"></label>
-                  <input id="hidden-form" type="hidden" name="html" value="">
-                  <input type="submit" value="send">
+
+                  <input type="submit" class="btn btn-default" value="send">
               </form>
 
 <br/>

@@ -2,3 +2,4 @@ env/
 *.pyc
 *.sublime*
 secrets.sh
+.coverage
