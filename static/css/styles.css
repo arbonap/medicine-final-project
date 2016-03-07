@@ -1,5 +1,31 @@
-div.relative {
-    position: relative;
-    left: 30px;
-    border: 3px solid #73AD21;
+
+body {
+    background-image: url("/static/gplaypattern.png");
+    background-attachment: fixed;
+
 }
+
+h1, h2, h3, h4, h5, h6 {
+    color: #800000;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+color: #black;  /*Sets the text hover color on navbar*/
+}
+
+
+  .navbar-default {
+    background-color: #800000;
+    border-color: #800000;
+}
+
+ .nav > li > a:hover,
+ .nav > li > a:focus {
+    text-decoration: none;
+    background-color: white; /*Change rollover cell color here*/
+  }
+
+
+  .navbar-default .navbar-nav > li > a {
+   color: white; /*Change active text color here*/
+    }
