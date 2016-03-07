@@ -339,27 +339,22 @@ def proces_doctor_information():
         print "This below is the user object:"
         print user
 
-        return render_template("your_doctors")
-
     else:
         flash("You are not logged in as anyone")
         return redirect("/login")
+    return redirect("/your_doctors")
 
 
 @app.route("/your_doctors")
 def display_doctors():
-    logged_in_user_name = session.get("user_id")
 
-    if logged_in_user_name:
-        user = User.query.filter_by(user_id=session['user_id']).first()
-        all_doctors = Doctor.query.filter_by(user_id=user.user_id).all()
+    user = User.query.filter_by(user_id=session['user_id']).first()
+    # instead of constaltly using logged_in_user_id, i can just directly get 'user_id' from the session
+    all_doctors = Doctor.query.filter_by(user_id=user.user_id).all()
 
-        return render_template("doctors_dashboard.html",
-                               all_doctors=all_doctors,
-                               user=user)
-    else:
-        flash("You are not logged in as anyone.")
-        return redirect("/login")
+    return render_template("doctors_dashboard.html",
+                           all_doctors=all_doctors,
+                           user=user)
 
 
 @app.route('/send-email', methods=['POST'])
@@ -410,7 +405,7 @@ if __name__ == "__main__":
     # that we invoke the DebugToolbarExtension
 
     # Do not debug for demo
-    app.debug = False
+    app.debug = True
 
     connect_to_db(app, 'postgresql:///medicines')
 
