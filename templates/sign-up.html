@@ -2,49 +2,64 @@
 {% block content %}
 <h1>
     <strong>
-        Sign-Up
+
+     <i class="fa fa-user-plus">
+    </i>Sign-Up
+
     </strong>
 </h1>
-<h2>
-    <italic>
-        <marquee>
-            Oohhh yeahhhhh &spades; &spades; &hearts;
-        </marquee>
-    </italic>
-</h2>
-<br>
+<h3>
+
+
+    <i>
+Begin your journey towards improved quality of life
+    </i>
+</h3>
+
 
 <form action="/sign-up" method="POST">
-<label for = "first_name">First name:
-<br>
-<input type="text" id="first_name" name="first_name" placeholder="Insert first name here">
-</label>
-<label for="last_name">
-<br>
-Last name:
-<br>
-<input type="text" id="last_name" name="last_name" placeholder="Insert last name here">
-</label>
-<label for="email">
-<br>
-Email:
-<br>
-<input type="text" id="email" name="email" placeholder="Insert email here">
-</label>
-<br>
-<label for="password">
-Password:
-<br>
-<input type="password" id="password" name="password" placeholder="Insert password here">
-</label>
-<label for="phone_number">
-<br>
-Phone number:
-<br>
-<input type="text" id="phone_number" name="phone_number" placeholder="Insert phone number here">
-</label>
-<br>
-<input type="submit" value="SIGN-UP TIME!" > 
+
+<div class="form-group">
+    <label for = "first_name">First name:
+
+        <input class='form-control' type="text" id="first_name" name="first_name" placeholder="Insert first name here">
+    </label>
+</div>
+<div class="form-group">
+    <label for="last_name">
+    Last name:
+        <input class='form-control' type="text" id="last_name" name="last_name" placeholder="Insert last name here">
+    </label>
+</div>
+<div class="form-group">
+    <label for="email">
+
+    Email:
+
+        <input class='form-control' type="text" id="email" name="email" placeholder="Insert email here">
+    </label>
+</div>
+
+<div class="form-group">
+
+    <label for="password">
+    Password:
+
+        <input class='form-control' type="password" id="password" name="password" placeholder="Insert password here">
+    </label>
+</div>
+
+<div class="form-group">
+    <label for="phone_number">
+
+    Phone number:
+
+        <input class='form-control' type="text" id="phone_number" name="phone_number" placeholder="Insert phone number here">
+    </label>
+
+</div>
+
+<input type="submit" value="Sign-Up" >
 
 </form>
-{% endblock %} 
+{% endblock %}

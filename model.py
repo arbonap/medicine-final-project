@@ -137,6 +137,14 @@ class Doctor(db.Model):
 ##############################################################################
 # Helper functions
 
+def example_data():
+    u = User(phone="123",
+             password="123",
+             email="123",
+             last_name="Thomas",
+             first_name="Rachel")
+    db.session.add(u)
+    db.session.commit()
 
 def connect_to_db(app, URL):
     """Connect the database to our Flask app."""

@@ -8,18 +8,14 @@ from model import connect_to_db, db
 class FlaskrTestCase1(unittest.TestCase):
 
     def setUp(self):
-        self.db_fd, app.config['medicines'] = tempfile.mkstemp()
-        self.app = app.test_client()
-        connect_to_db(app, "sqlite:///")
-        db.create_all()
+      """Stuff to do before every test."""
 
-    def tearDown(self):
-        os.close(self.db_fd)
-        os.unlink(app.config['medicines'])
+      self.client = app.test_client()
+      app.config['TESTING'] = True
 
-    def test_empty_db(self):
-        rv = self.app.get('/sign-up')
-        print rv.status_code
+    def test_route(self):
+        rv = self.client.get('/sign-up')
+        assert "Password" in rv.data
         assert rv.status_code == 200
 
 if __name__ == '__main__':
