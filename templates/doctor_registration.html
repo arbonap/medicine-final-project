@@ -9,27 +9,36 @@
     <i>Enter information about upcoming Doctor's Appointment</i></h3>
 <br>
 <form action="/process_doctor_registration" method="POST">
-
+<div class="form-group">
     <br>
     <label for="doctor_name"> Doctor's name:</label>
     <br>
-    <input type="text" id="doctor_name" name="doctor_name" placeholder="Insert doctor's name here">
+    <input class='form-control' type="text" id="doctor_name" name="doctor_name" placeholder="Insert doctor's name here">
+</div>
+<div class="form-group">
     <br>
     <label for="condition"> Condition you see this doctor for: </label>
     <br>
-    <input type="text" id="condition" name="condition" placeholder="Insert condition here">
+    <input class='form-control' type="text" id="condition" name="condition" placeholder="Insert condition here">
     <br>
+</div>
+<div class="form-group">
     <label for="phone"> Doctor's office phone number:</label>
     <br>
-    <input type="text" id="phone" name="phone" placeholder="Insert phone number here">
+    <input class='form-control' type="text" id="phone" name="phone" placeholder="Insert phone number here">
+</div>
+<div class="form-group">
     <br>
     <label for="office_address"> Doctor's office address:</label>
     <br>
-    <input type="text" id="office_address" name="office_address" placeholder="Insert doctors office address here">
+    <input class='form-control' type="text" id="office_address" name="office_address" placeholder="Insert doctors office address here">
+</div>
+<div class="form-group">
     <br>
     <label for="appointment_date"> Input date and time for your upcoming doctor's appointment:</label>
     <br>
-    <input type="datetime-local" id="appointment_date" name="appointment_date">
+    <input class='form-control' type="datetime-local" id="appointment_date" name="appointment_date">
+</div>
     <br>
 
 
