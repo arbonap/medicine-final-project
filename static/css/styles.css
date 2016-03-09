@@ -2,15 +2,19 @@
 body {
     background-image: url("/static/gplaypattern.png");
     background-attachment: fixed;
+    font-family: 'Montserrat', sans-serif;
 
 }
 
-h1, h2, h3, h4, h5, h6 {
+
+
+title, h1, h2, h3, h4, h5, h6 {
     color: #800000;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-color: #black;  /*Sets the text hover color on navbar*/
+color: #cccccc;  /*Sets the text hover color on navbar*/
 }
 
 

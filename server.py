@@ -17,8 +17,6 @@ app.config.update(
     MAIL_PORT=465,
     MAIL_USE_SSL=True,
     MAIL_USE_TLS=False,
-    # MAIL_USERNAME='checkengine2016',
-    # MAIL_PASSWORD='checkengine1999'
     MAIL_USERNAME=os.environ['GMAIL_USER_NAME'],
     MAIL_PASSWORD=os.environ['GMAIL_PASSWORD']
     )
@@ -27,10 +25,7 @@ mail = Mail(app)
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
-#???
 
-# Normally, if you use an undefined variable in Jinja2, it fails silently.
-# This is so Jinja2 doesn't fail silently and gives an error
 app.jinja_env.undefined = StrictUndefined
 
 
@@ -210,36 +205,12 @@ def show_meds():
         pres_names = {}
         for pres in all_meds:
             pres_names[pres.prescription_id] = [pres.med_name]
-        print pres_names
-        print "!!!!ABOVE IS PRES_NAMES!!!"
-        # print pres_names should output something like:
-        # {1: [u'example']}
-
-        # this dictionary is necessary in order for jinja to later loop over (because jinja can only do simple for loops)
-        # pres_times = {}
-        # for time in rx_timestamp:
-        #     if time.prescription_id in pres_times:
-        #         pres_times[time.prescription_id].append(time.timestamp.strftime("%H:%M:%S"))
-        #     else:
-        #         pres_times[time.prescription_id] = [time.timestamp.strftime("%H:%M:%S")]
-
-        # print pres_times
-        # print "ABOVE IS PRES_TIMES!!!!!!!!!!!!!"
 
         # create a dictionary with the med obj as the key and the schedule list as values
         med_dict = dict()
 
         for m in all_meds:
-            # if med_dict.get(m):
-            #     pass
-            # else:
-            #     med_dict[m] = m.schedule
             med_dict.setdefault(m, m.schedule)
-
-        # pres_info = {}
-        # for pres in all_meds:
-        #     pres_info[pres.pres_id] = [pres.med_name, pres.timestamp]
-        # print "HELLO! ABOVE IS PRES_INFO!!!!!"
 
         # should gives back a query for all timestamps from logged in user
         return render_template("prescriptions_dashboard.html",
@@ -276,13 +247,6 @@ def reminder(user_id):
                     first_name=prescription.user.first_name)
                 flash(message)
                 return message
-
-
-            # make nav bar in html
-            # make sure i'm still being logged in
-            # if already logged in, get message that user is already logged in
-            # put logged in message in nav bar - make visual - in jinja
-            # if "user_id" in session
 
 
 @app.route('/doctor_registration')
