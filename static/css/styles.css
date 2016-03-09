@@ -29,3 +29,11 @@ color: #black;  /*Sets the text hover color on navbar*/
   .navbar-default .navbar-nav > li > a {
    color: white; /*Change active text color here*/
     }
+
+.form-group {
+    width: 450px;
+}
+
+.form-control {
+    width: 450px;
+}

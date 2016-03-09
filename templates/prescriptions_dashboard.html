@@ -2,18 +2,17 @@
 {% block content %}
 
 <h1> Hello and welcome, {{ user.first_name }} ! </h1>
-<br>
-<h2> You are currently signed in as {{ user.email }} </h2>
 
-<h4>
-    <a href="/logout">Click here to sign out </a>
-</h4>
+<h5> <i class="fa fa-user"></i>
+    You are currently signed in as {{ user.email }} </h5>
+<br>
 <div id="prescription-html">
-<h3>Your prescription dashboard:</h3>
+<h3><i class="fa fa-medkit"></i>
+    Your prescription dashboard:</h3>
 
 <br>
 <i>
-    <i class="fa fa-calendar">
+    <i class="fa fa-info-circle"></i>
     </i>
     Prescription information:
 </i>
@@ -33,10 +32,10 @@
 
 
 <ul>
-    <i class="fa fa-calendar"></i>
+
     <!-- the following loops over dictionary created in server.py: -->
     {% for m in meds %}
-        <li>{{ m.med_name }}
+        <li><i class="fa fa-clock-o"></i> Upcoming prescription times for: {{ m.med_name }}
             <ul>
                 {% for time in m.schedule %}
                     <li>{{ time.timestamp }}</li>
@@ -49,11 +48,11 @@
 <br>
 <br>
 
-<h4>
+<h3>
     <i class="fa fa-envelope">
     </i>
     Email me upcoming prescription reminder:
-</h4>
+</h3>
 
 
     <form action="/send-email" method="POST">

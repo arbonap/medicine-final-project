@@ -2,25 +2,34 @@
 {% block content %}
 <h1>
     <strong>
-        Login-Form
+        <i class="fa fa-user"></i>
+        Login Below:
     </strong>
+    <h3><i><i class="fa fa-bell-o"></i>Begin to take advantage of easy-to-set-up scheduled reminders</i></h3>
 </h1>
 <br>
 
 <form action="/loggedin" method='POST'>
+ <div class="form-group">
+
     <label for="email">
     Email:
     <br>
     </label>
-    <input type="text" id="email" name="email" placeholder="Insert your email here">
+    <input class="form-control" type="text" id="email" name="email" placeholder="Insert your email here">
+</div>
     <br>
+<div class="form-group">
+
     <label for="password">Password:
     <br>
     </label>
-    <input type="password" id="password" name="password" placeholder="Insert your password here">
+
+
+    <input class="form-control" type="password" id="password" name="password" placeholder="Insert your password here">
     <br>
+</div>
     <input type="submit" value="Submit here">
 </form>
-<br>
-<a href="/">Click here to go back to the main page</a>
+
 {% endblock %}

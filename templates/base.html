@@ -17,7 +17,9 @@
   <link rel="stylesheet" href="/static/css/styles.css">
   <link rel="stylesheet" href="/static/css/third_party/third_party.css">
 
-    <title>MedMinder</title>
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>
+MedMinder</title>
 
 </head>
 
@@ -99,7 +101,7 @@
   <div class=" row alert alert-success alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 {% for flash in get_flashed_messages() %}
-  {{ flash }}
+  {{ flash }}<br>
 {% endfor %}
   </div>
 
@@ -111,4 +113,18 @@
 
 
 </body>
+
+<footer>
+  <center>
+  <br>
+  <br>
+  <br>
+  MedMinder
+<i class="fa fa-copyright"></i>
+2016 - Made by:
+<a href="https://www.linkedin.com/in/parbona">Patricia Arbona</a>
+
+  <i class="fa fa-heartbeat"></i>
+</center>
+</footer>
 </html>
